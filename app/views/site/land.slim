@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Virtual SILCton
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  body
+    .container
+      .row.well align="center"
+        h1 Virtual SILCton
+      .row
+        .span6 align="center"
+          h2 Participants
+          p Please select the lab you are participating through:
+          ul.unstyled
+            - for lab in @labs
+              li 
+                h4 = link_to lab.name, lab_land_path(lab)
+        .span6 align="center"
+          h2 Experimenters
+          a.btn.btn-inverse.btn-large href="/experimenter" Manage Your Studies
+      = render 'credits_footer'

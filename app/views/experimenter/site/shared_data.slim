@@ -1,0 +1,456 @@
+- content_for :head do
+  = javascript_include_tag "render-data-table"
+
+- content_for :after_container_body do
+  h1 Shared Data
+
+  ul.nav.nav-tabs
+    - if @table == 'spatial-ability-and-demographics'
+      li.active
+        a Spatial Ability and Demographics
+    - else
+      li
+        a href="?table=spatial-ability-and-demographics" Spatial Ability and Demographics
+    - if @table == 'sbsod'
+      li.active
+        a SBSOD
+    - else
+      li
+        a href="?table=sbsod" SBSOD
+    - if @table == 'mrt'
+      li.active
+        a MRT
+    - else
+      li
+        a href="?table=mrt" MRT
+    - if @table == 'pvas'
+      li.active
+        a PVAS
+    - else
+      li
+        a href="?table=pvas" PVAS
+    - if @table == 'psas'
+      li.active
+        a PSAS
+    - else
+      li
+        a href="?table=psas" PSAS
+    - if @table == 'navigation-log'
+      li.active
+        a Navigation Log
+    - else
+      li
+        a href="?table=navigation-log" Navigation Log
+    - if @table == 'model'
+      li.active
+        a Model
+    - else
+      li
+        a href="?table=model" Model
+    - if @table == 'distance'
+      li.active
+        a Distance
+    - else
+      li
+        a href="?table=distance" Distance
+    - if @table == 'onsite-pointing'
+      li.active
+        a Onsite Pointing
+    - else
+      li
+        a href="?table=onsite-pointing" Onsite Pointing
+    - if @table == 'offsite-pointing'
+      li.active
+        a Offsite Pointing
+    - else
+      li
+        a href="?table=offsite-pointing" Offsite Pointing
+
+  - if @table == 'spatial-ability-and-demographics'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th age
+          th sex
+          th first name
+          th last name
+          th e-mail
+          th date
+          th MRT SDT-style
+          th PSAS average
+          th PVAS average
+          th SBSOD average
+          th gender
+          th ethnic category
+          th racial category
+          th education
+          th handedness
+          th first language
+          th prescription meds
+          th head injuries
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          tr
+            td = link_to p.study.name, experimenter_study_path(p.study)
+            td = p.age
+            td = p.sex
+            td = p.participant_personal_record.first_name if p.participant_personal_record
+            td = p.participant_personal_record.last_name if p.participant_personal_record
+            td = p.participant_personal_record.email if p.participant_personal_record
+            td = p.created_at
+            td = p.mrt_records.first.sdt_score unless !p.mrt_records.first
+            td = p.psas_records.first.average_score unless !p.psas_records.first
+            td = p.pvas_records.first.average_score unless !p.pvas_records.first
+            td = p.sbsod_records.first.average_score unless !p.sbsod_records.first
+            td = p.vambler_demographics_records.first.gender unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.ethnic_category unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.racial_category unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.education unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.handedness unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.first_language unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.prescription_meds unless !p.vambler_demographics_records.first
+            td = p.vambler_demographics_records.first.head_injuries unless !p.vambler_demographics_records.first
+
+  - elsif @table == 'sbsod'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th total score
+          th average score
+          th q1 (should be reverse coded)
+          th q2
+          th q3 (should be reverse coded)
+          th q4 (should be reverse coded)
+          th q5 (should be reverse coded)
+          th q6
+          th q7 (should be reverse coded)
+          th q8
+          th q9 (should be reverse coded)
+          th q10
+          th q11
+          th q12
+          th q13
+          th q14 (should be reverse coded)
+          th q15
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.sbsod_records.each do |sbsod|
+            tr
+              td = link_to p.study.name, experimenter_study_path(p.study)
+              td = sbsod.created_at
+              td = sbsod.total_score
+              td = sbsod.average_score
+              td = sbsod.q1
+              td = sbsod.q2
+              td = sbsod.q3
+              td = sbsod.q4
+              td = sbsod.q5
+              td = sbsod.q6
+              td = sbsod.q7
+              td = sbsod.q8
+              td = sbsod.q9
+              td = sbsod.q10
+              td = sbsod.q11
+              td = sbsod.q12
+              td = sbsod.q13
+              td = sbsod.q14
+              td = sbsod.q15
+
+  - elsif @table == 'mrt'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th SDT-style score
+          th q1
+          th q2
+          th q3
+          th q4
+          th q5
+          th q6
+          th q7
+          th q8
+          th q9
+          th q10
+          th q11
+          th q12
+          th q13
+          th q14
+          th q15
+          th q16
+          th q17
+          th q18
+          th q19
+          th q20
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.mrt_records.each do |mrt|
+            tr
+              td = link_to p.study.name, experimenter_study_path(p.study)
+              td = mrt.created_at
+              td = mrt.sdt_score
+              td = mrt.q1
+              td = mrt.q2
+              td = mrt.q3
+              td = mrt.q4
+              td = mrt.q5
+              td = mrt.q6
+              td = mrt.q7
+              td = mrt.q8
+              td = mrt.q9
+              td = mrt.q10
+              td = mrt.q11
+              td = mrt.q12
+              td = mrt.q13
+              td = mrt.q14
+              td = mrt.q15
+              td = mrt.q16
+              td = mrt.q17
+              td = mrt.q18
+              td = mrt.q19
+              td = mrt.q20
+
+
+
+  - elsif @table == 'pvas'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th total score
+          th average score
+          th q1 (should be reverse coded)
+          th q2 (should be reverse coded)
+          th q3
+          th q4 (should be reverse coded)
+          th q5 (should be reverse coded)
+          th q6 (should be reverse coded)
+          th q7
+          th q8 (should be reverse coded)
+          th q9
+          th q10 (should be reverse coded)
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.pvas_records.each do |pvas|
+            tr
+              td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.created_at
+              td = pvas.total_score
+              td = pvas.average_score
+              td = pvas.q1
+              td = pvas.q2
+              td = pvas.q3
+              td = pvas.q4
+              td = pvas.q5
+              td = pvas.q6
+              td = pvas.q7
+              td = pvas.q8
+              td = pvas.q9
+              td = pvas.q10
+
+  - elsif @table == 'psas'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th length
+          th total score
+          th average score
+          th q1 (should be reverse coded)
+          th q2 (should be reverse coded)
+          th q3 (should be reverse coded)
+          th q4 (should be reverse coded)
+          th q5
+          th q6 (should be reverse coded)
+          th q7
+          th q8 (should be reverse coded)
+          th q9
+          th q10 (should be reverse coded)
+          th q11 (should be reverse coded)
+          th q12 (should be reverse coded)
+          th q13 (should be reverse coded)
+          th q14 (should be reverse coded)
+          th q15 (should be reverse coded)
+          th q16 (should be reverse coded)
+          th q17 (should be reverse coded)
+          th q18 (should be reverse coded)
+          th q19 (should be reverse coded)
+          th q20 (should be reverse coded)
+          th q21
+          th q22 (should be reverse coded)
+          th q23
+          th q24
+          th q25 (should be reverse coded)
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.psas_records.each do |psas|
+            tr
+              td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.created_at
+              td = psas.length
+              td = psas.total_score
+              td = psas.average_score
+              td = psas.q1
+              td = psas.q2
+              td = psas.q3
+              td = psas.q4
+              td = psas.q5
+              td = psas.q6
+              td = psas.q7
+              td = psas.q8
+              td = psas.q9
+              td = psas.q10
+              td = psas.q11
+              td = psas.q12
+              td = psas.q13
+              td = psas.q14
+              td = psas.q15
+              td = psas.q16
+              td = psas.q17
+              td = psas.q18
+              td = psas.q19
+              td = psas.q20
+              td = psas.q21
+              td = psas.q22
+              td = psas.q23
+              td = psas.q24
+              td = psas.q25
+
+  - elsif @table == 'navigation-log'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th route
+          th # of log lines
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.virtual_navigation_logs.each do |vnl|
+            tr
+              td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.created_at
+              td = vnl.route
+              td = vnl.number_of_log_lines
+              td = link_to "view log text", experimenter_study_participant_virtual_navigation_log_path(p.study, p, vnl)
+
+  - elsif @table == 'model'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th model number
+          th building
+          th x
+          th y
+          th error
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.virtual_map_arrangements.each_with_index do |ma, map_arrangement_index|
+            - ma.virtual_map_arrangement_pieces.each do |map|
+              tr
+                td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.created_at
+                td = map_arrangement_index
+                td = map.virtual_landmark.name
+                td = map.upper_left_pixel_x
+                td = map.upper_left_pixel_y
+                td = map.error if map.upper_left_pixel_x and map.upper_left_pixel_y
+
+  - elsif @table == 'distance'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th distance test
+          th start landmark
+          th target landmark
+          th estimated distance
+          th actual distance
+          th same or different route
+          th spss level
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.virtual_distance_tests.each_with_index do |vdt, vdt_index|
+            - vdt.virtual_distance_estimates.each do |vde|
+              tr
+                td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.created_at
+                td = vdt_index
+                td = vde.start_landmark.name
+                td = vde.target_landmark.name
+                td = vde.target_pixel_position
+                td = vde.start_landmark.distance_to(vde.target_landmark, "front_door", "front_door")
+                td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+                td = vdt_index.to_s + vde.start_landmark.same_or_different_route(vde.target_landmark)
+
+  - elsif @table == 'onsite-pointing'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th direction test
+          th start landmark
+          th facing landmark
+          th target landmark
+          th bearing
+          th actual direction
+          th abs error
+          th same or different route
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.virtual_direction_tests.find(:all, :conditions => "style = 'onsite'").each_with_index do |vdt, vdt_index|
+            - vdt.virtual_direction_estimates.each do |vde|
+              tr
+                td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.created_at
+                td = vdt_index
+                td = vde.start_landmark.name
+                td = vde.facing_landmark.name
+                td = vde.target_landmark.name
+                td = vde.bearing
+                td = vde.true_direction
+                td = vde.abs_error
+                td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+
+  - elsif @table == 'offsite-pointing'
+    table.table.table-bordered.table-striped.data-table
+      thead
+        tr
+          th study
+          th date
+          th direction test
+          th start landmark
+          th facing landmark
+          th target landmark 
+          th bearing
+          th actual direction
+          th abs error
+          th same or different route
+
+      tbody
+        - @participants_with_currently_shared_data.each do |p|
+          - p.virtual_direction_tests.find(:all, :conditions => "style = 'offsite'").each_with_index do |vdt, vdt_index|
+            - vdt.virtual_direction_estimates.each do |vde|
+              tr
+                td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.created_at
+                td = vdt_index
+                td = vde.start_landmark.name
+                td = vde.facing_landmark.name
+                td = vde.target_landmark.name
+                td = vde.bearing
+                td = vde.true_direction
+                td = vde.abs_error
+                td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+
+= render :template => '/experimenter/layout'

@@ -1,0 +1,26 @@
+<h2>Experimenters</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Experimenter name</th>
+      <th>Lab</th>
+      <th>&#35; of studies</th>
+      <th>Last signed in</th>
+    </tr>
+  </thead>
+  <% for experimenter in @experimenters %>
+  <tr>
+    <td><strong><%= link_to experimenter.full_name, experimenter_experimenter_path(experimenter) %></strong></td>
+    <td><%= experimenter.lab.name %>
+    <td><%= pluralize(experimenter.studies.length, "study") %></td>
+    <td>
+      <% if experimenter.last_sign_in_at %>
+        <%= time_ago_in_words experimenter.last_sign_in_at %> ago
+      <% else %>
+        never
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>

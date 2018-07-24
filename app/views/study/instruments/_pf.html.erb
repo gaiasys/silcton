@@ -1,0 +1,1092 @@
+<script language="javascript">
+    var timer;
+    
+    // check that the practice problem was answered correctly
+    // display results
+    // if correct, enable "I am Ready to Begin" button
+    function practice_check(){
+        if (document.pf_form.sample_problem[2].checked) {
+            document.getElementById("sample_problem_incorrect").style.display = "none";
+            document.getElementById("sample_problem_correct").style.display = "block";
+			$('#begin_button').button("option", "disabled", false);
+            document.getElementById("check_practice").style.display = "none";
+        }
+        else {
+            document.getElementById("sample_problem_correct").style.display = "none";
+            document.getElementById("sample_problem_incorrect").style.display = "block";
+        }
+        document.getElementById("sample_problem_explanation").style.display = "block";
+    }
+    
+    // hide the current page and show the next page
+    function show_and_hide(page_to_hide, page_to_show){
+        document.getElementById(page_to_hide).style.display = "none";
+        document.getElementById(page_to_show).style.display = "block";
+    }
+    
+    function start_timer(part){
+        three_minutes = 3 * 60 * 1000;
+        if (part == 1) {
+            timer = setTimeout("end_part1_and_continue()", three_minutes);
+        }
+        else 
+            if (part == 2) {
+                timer = setTimeout("end_part2_and_stop()", three_minutes);
+            }
+    }
+    
+    function clear_timer(){
+        clearTimeout(timer);
+    }
+    
+    function end_part1_and_continue(){
+        show_and_hide("part_1", "part_1_complete");
+    }
+    
+    function end_part2_and_stop(){
+        show_and_hide("part_2", "part_2_complete");
+    }
+</script>
+<%= form_for @pf_record, :url => :study_instrument, :html => {:id => "pf_form", :name => "pf_form"} do |f| %>
+<div class="page_instructions" id="instructions">
+    <div class="instructions" style="height: 625px;">
+        <div class="heading">
+            Paper Folding Test
+        </div>
+        <p>
+            In this test you are to imagine the folding and unfolding of pieces of paper. In each problem in the test there are some figures drawn at the left and there are others drawn at the right. The figures at the left represent a square piece of paper being folded, and the last of these figures has one or two small circles drawn on it to show where the paper has been punched. Each hole is punched through all the thicknesses of paper at that point. One of the five figures at the right shows where the holes will be when the paper is completely unfolded. You are to decide which one of these figures is correct and select the circle below that figure.
+        </p>
+        <p>
+            Now try the sample problem below. (In this problem only one hole was punched in the folded paper.)
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/sample_problem.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/sample_problem_a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/sample_problem_b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/sample_problem_c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/sample_problem_d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/sample_problem_e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="sample_problem" value="1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="sample_problem" value="2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="sample_problem" value="3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="sample_problem" value="4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="sample_problem" value="5" />
+                </td>
+            </tr>
+        </table>
+        <div id="sample_problem_incorrect" class="practice_problem_incorrect">
+            Incorrect &#8212; Please try again
+        </div>
+        <div id="sample_problem_correct" class="practice_problem_correct">
+            Correct
+        </div>
+        <br/>
+        <div align="center">
+            <input type="button" value="Check My Answer" id="check_practice" class="button" onClick="practice_check()"/>
+        </div>
+        <div id="sample_problem_explanation" style="display: none;">
+            <p>
+                The correct answer to the sample problem above is C and so it should have been checked. The figures below show how the paper was folded and why C is the correct answer.
+            </p>
+            <div align="center">
+                <img src="/images/pf/sample_explanation.png" />
+            </div>
+        </div>
+        <p>
+            In these problems all of the folds that are made are shown in the figures at the left, and the paper is not turned or moved in any way except to make the folds shown in the figures. Remember, the correct answer is the figure that shows the positions of the holes when the paper is completely unfolded.
+        </p>
+        <p>
+            Your score on this test will be the number marked correctly minus a fraction of the number marked incorrectly. Therefore, it will <strong>not</strong>
+            be to your advantage to guess unless you are able to eliminate one or more of the answer choices as wrong.
+        </p>
+        <p>
+            This test has two parts. You will have 3 minutes for each of the two parts. <% if @instrument.force_wait %>Please use the entire time to select and check over your answers. When the time is up, you will be automatically advanced to the next screen.<% end %> 
+        </p>
+        <div align="center">
+            <input type="button" value="I Am Ready to Begin" class="button" onclick="show_and_hide('instructions','part_1'); start_timer(1);" id="begin_button" disabled="disabled" />
+        </div>
+    </div>
+</div>
+<div class="page" id="part_1">
+    <div class="instructions" style="height: 625px;">
+        <div class="heading">
+            Part 1 (3 minutes)
+        </div>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/1.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/1a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/1b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/1c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/1d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/1e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q1" value="a" id="q1_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q1" value="b" id="q1_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q1" value="c" id="q1_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q1" value="d" id="q1_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q1" value="e" id="q1_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/2.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/2a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/2b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/2c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/2d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/2e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q2" value="a" id="q2_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q2" value="b" id="q2_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q2" value="c" id="q2_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q2" value="d" id="q2_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q2" value="e" id="q2_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/3.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/3a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/3b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/3c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/3d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/3e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q3" value="a" id="q3_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q3" value="b" id="q3_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q3" value="c" id="q3_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q3" value="d" id="q3_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q3" value="e" id="q3_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/4.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/4a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/4b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/4c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/4d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/4e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q4" value="a" id="q4_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q4" value="b" id="q4_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q4" value="c" id="q4_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q4" value="d" id="q4_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q4" value="e" id="q4_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/5.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/5a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/5b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/5c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/5d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/5e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q5" value="a" id="q5_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q5" value="b" id="q5_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q5" value="c" id="q5_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q5" value="d" id="q5_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q5" value="e" id="q5_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/6.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/6a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/6b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/6c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/6d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/6e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q6" value="a" id="q6_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q6" value="b" id="q6_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q6" value="c" id="q6_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q6" value="d" id="q6_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q6" value="e" id="q6_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/7.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/7a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/7b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/7c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/7d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/7e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q7" value="a" id="q7_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q7" value="b" id="q7_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q7" value="c" id="q7_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q7" value="d" id="q7_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q7" value="e" id="q7_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/8.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/8a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/8b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/8c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/8d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/8e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q8" value="a" id="q8_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q8" value="b" id="q8_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q8" value="c" id="q8_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q8" value="d" id="q8_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q8" value="e" id="q8_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/9.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/9a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/9b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/9c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/9d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/9e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q9" value="a" id="q9_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q9" value="b" id="q9_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q9" value="c" id="q9_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q9" value="d" id="q9_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q9" value="e" id="q9_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/10.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/10a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/10b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/10c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/10d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/10e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q10" value="a" id="q10_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q10" value="b" id="q10_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q10" value="c" id="q10_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q10" value="d" id="q10_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q10" value="e" id="q10_c5" />
+                </td>
+            </tr>
+        </table>
+		<% if @instrument.force_wait %>
+        <div align="center">
+            Please check over your answers until your 3 minutes are up. You will then be taken to the next part of the test.
+        </div>
+        <% else %>
+        <div align="center">
+            <input type="button" class="button" onclick="clear_timer(); end_part1_and_continue();" value="I'm Finished"/>
+        </div>
+		<% end %>
+    </div>
+</div>
+<div class="page" id="part_1_complete">
+    <div class="instructions">
+        <p>
+            You have finished Part I. When you are ready to begin Part II, click below. You will again have 3 minutes.
+        </p>
+        <div align="center">
+            <input type="button" value="I Am Ready to Begin" class="button" onclick="show_and_hide('part_1_complete','part_2'); start_timer(2);"/>
+        </div>
+    </div>
+</div>
+<div class="page" id="part_2">
+    <div class="instructions" style="height: 625px;">
+        <div class="heading">
+            Part 2 (3 minutes)
+        </div>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/11.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/11a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/11b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/11c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/11d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/11e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q11" value="a" id="q11_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q11" value="b" id="q11_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q11" value="c" id="q11_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q11" value="d" id="q11_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q11" value="e" id="q11_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/12.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/12a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/12b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/12c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/12d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/12e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q12" value="a" id="q12_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q12" value="b" id="q12_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q12" value="c" id="q12_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q12" value="d" id="q12_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q12" value="e" id="q12_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/13.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/13a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/13b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/13c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/13d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/13e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q13" value="a" id="q13_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q13" value="b" id="q13_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q13" value="c" id="q13_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q13" value="d" id="q13_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q13" value="e" id="q13_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/14.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/14a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/14b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/14c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/14d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/14e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q14" value="a" id="q14_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q14" value="b" id="q14_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q14" value="c" id="q14_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q14" value="d" id="q14_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q14" value="e" id="q14_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/15.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/15a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/15b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/15c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/15d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/15e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q15" value="a" id="q15_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q15" value="b" id="q15_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q15" value="c" id="q15_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q15" value="d" id="q15_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q15" value="e" id="q15_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/16.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/16a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/16b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/16c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/16d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/16e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q16" value="a" id="q16_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q16" value="b" id="q16_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q16" value="c" id="q16_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q16" value="d" id="q16_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q16" value="e" id="q16_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/17.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/17a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/17b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/17c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/17d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/17e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q17" value="a" id="q17_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q17" value="b" id="q17_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q17" value="c" id="q17_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q17" value="d" id="q17_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q17" value="e" id="q17_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/18.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/18a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/18b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/18c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/18d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/18e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q18" value="a" id="q18_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q18" value="b" id="q18_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q18" value="c" id="q18_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q18" value="d" id="q18_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q18" value="e" id="q18_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/19.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/19a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/19b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/19c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/19d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/19e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q19" value="a" id="q19_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q19" value="b" id="q19_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q19" value="c" id="q19_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q19" value="d" id="q19_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q19" value="e" id="q19_c5" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;
+        </p>
+        <table width="100%" border="0">
+            <tr valign="bottom">
+                <td align="left" width="450">
+                    <img src="/images/pf/20.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/20a.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/20b.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/20c.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/20d.png" />
+                </td>
+                <td align="center">
+                    <img src="/images/pf/20e.png" />
+                </td>
+            </tr>
+            <tr valign="middle">
+                <td>
+                    &nbsp;
+                </td>
+                <td align="center">
+                    <input type="radio" name="q20" value="a" id="q20_c1" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q20" value="b" id="q20_c2" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q20" value="c" id="q20_c3" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q20" value="d" id="q20_c4" />
+                </td>
+                <td align="center">
+                    <input type="radio" name="q20" value="e" id="q20_c5" />
+                </td>
+            </tr>
+        </table>
+		<% if @instrument.force_wait %>
+        <div align="center">
+            Please check over your answers until your 3 minutes are up. You will then be taken to the next part of the test.
+        </div>
+        <% else %>
+        <div align="center">
+            <input type="button" class="button" onclick="clear_timer(); end_part2_and_stop();" value="I'm Finished"/>
+        </div>
+		<% end %>
+    </div>
+</div>
+<div class="page" id="part_2_complete">
+    <div class="instructions">
+        <p>
+            You have finished the test.
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <div align="center">
+            <%= submit_tag 'Next', :class => "button" %>
+        </div>
+    </div>
+</div>
+<% end %>

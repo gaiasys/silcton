@@ -1,0 +1,116 @@
+body {
+  margin: 6px;
+}
+
+/* from mrt.css */
+.number {
+	font: normal 14px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.page_number {
+	font: normal 16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 3px auto;
+	padding: 0 0 23px 0;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+ul.page_number li {
+	display: inline;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	background: #DDD;
+	border: 1px solid #000;
+	color: #000;
+	float: left;
+	margin: 0 0 0 5px;
+	padding: 2px 6px 2px 6px;
+	text-decoration: none
+}
+
+ul.page_number li.selected_page {
+	background: #FFF;
+	border-bottom: none;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #000;
+	color: #000;
+	margin: 0 0 0 5px;
+	padding: 2px 6px 3px 6px;
+	font-weight: bold;
+}
+
+ul.page_number li.plain_label {
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	background: #FFF;
+	margin: 0 0 0 5px;
+	padding: 2px 6px 3px 6px
+}
+
+.page {
+	margin-left: auto;
+	margin-right: auto;
+	height: 650px;
+	border: 1px solid #000000;
+	padding: 18px 6px 6px;
+	display: none;
+}
+
+.page_instructions {
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #000000;
+	padding: 18px 6px 6px;
+	display: block;
+	font: normal 14px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.bounding_box {
+	margin-left: auto;
+	margin-right: auto;
+	width: 725px;
+}
+
+.instructions {
+	overflow: auto;
+	height: 390px;
+}
+
+.button {
+	border: 1px dashed #FF9933;
+	font: normal 16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.button.secondary {
+	border: none;
+}
+
+.heading {
+	font: normal 16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+}
+
+.practice_problem_correct {
+	display: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #006600;
+	text-align: center;
+}
+
+.practice_problem_incorrect {
+	display: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FF0000;
+	text-align: center;
+}

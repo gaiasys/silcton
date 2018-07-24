@@ -1,0 +1,14 @@
+- content_for :body do
+  = simple_form_for([:experimenter, @lab], :html => { :class => 'form-horizontal' }) do |f|
+    h1 Create Lab
+        
+    - if f.error_messages
+      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    = f.input :name
+    = f.input :web_site
+    = f.input :country
+          
+    .form-actions
+      = f.submit "Create Lab", {:class => "btn btn-primary"}
+      
+= render :template => '/experimenter/layout'

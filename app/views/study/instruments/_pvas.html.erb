@@ -1,0 +1,64 @@
+<%
+items = []
+items << {'n' => 'q1', 'q' => 'I am good at crossword puzzles.'}
+items << {'n' => 'q2', 'q' => 'I am good at Scrabble.'}
+items << {'n' => 'q3', 'q' => 'I often have trouble finding the right word to say.'}
+items << {'n' => 'q4', 'q' => 'I would rather read a text explanation than look at a drawing or figure.'}
+items << {'n' => 'q5', 'q' => 'I have a good vocabulary.'}
+items << {'n' => 'q6', 'q' => 'I spend more time reading than most people I know.'}
+items << {'n' => 'q7', 'q' => 'I prefer to watch TV or movies than to read for leisure.'}
+items << {'n' => 'q8', 'q' => 'I can easily follow a complex verbal argument.'}
+items << {'n' => 'q9', 'q' => 'I often have trouble expressing what I mean in words.'}
+items << {'n' => 'q10', 'q' => 'I have a good sense of language usage and write grammatically.'}
+
+items = items.sort_by {rand} if @instrument.randomize
+%>
+
+<style>
+  label.missing {
+    background: #8A0917;
+    color: #FFFFFF;
+    padding: 6px;
+    display: none;
+  }
+</style>
+
+<script type="text/javascript">
+  $.metadata.setType("attr", "validate");
+
+  $(document).ready(function(){
+    $("#pvas_form").validate({
+      errorClass: 'missing',
+    });
+  });
+</script>
+
+
+<h2>Philadelphia Verbal Abilty Scale</h2>
+<p>This questionnaire consists of several statements about your verbal abilities, preferences, and experiences. After each statement, you should select a number to indicate your level of agreement with the statement. Select "1" if you strongly agree that the statement applies to you, "7" if you strongly disagree, or some number in between if your agreement is intermediate. Select "4" if you neither agree nor disagree.</p>
+
+<%= form_for @pvas_record, :url => :study_instrument, :html => {:id => "pvas_form"} do |f| %>
+<% for item in items %>
+<p id="p_<%= item["n"] %>">
+  <strong><%= item["q"] %></strong> <label for="<%= "pvas[#{item['n']}]" %>" class="missing">Please answer this question.</label><br/>
+  <table border="0">
+    <tr>
+      <td>strongly agree</td>
+      <% (1..7). each do |i| %>
+      <td><div align="center"><%= radio_button_tag "pvas[#{item['n']}]", i, false, :validate => "required:true" %></div></td>
+      <% end %>
+      <td>strongly disagree</td>
+    </tr>
+    <tr>
+      <td></td>
+      <% (1..7). each do |i| %>
+      <td><div align="center"><%= i %></div></td>
+      <% end %>
+      <td></td>
+    </tr>
+  </table>
+</p>
+<% end %>
+
+<p align="right"><%= submit_tag 'I am Finished', :class => "button" %></p>
+<% end %>

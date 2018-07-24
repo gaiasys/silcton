@@ -1,0 +1,168 @@
+
+<script type="text/javascript" language="javascript">
+  <% for target in @virtual_environment.virtual_landmarks %>
+	//var lineToTarget<%= target.id %>;
+	<% end %>
+	
+	$(function() {
+		//$('.pointing_area').svg();
+	 
+	 $('.page:first').show();
+	 
+	 $('.next_button').click(function(event) {
+		 $(event.target).closest('.page').hide();
+		 $(event.target).closest('.page').next().show();
+	 });
+	 
+    $('.target').draggable({
+        containment: 'parent',
+				drag: function(event, ui) {
+					var direction_estimate_number = $(ui.helper).metadata().direction_estimate_number;
+					
+					var x = $(ui.helper).offset().left + ($(ui.helper).width() / 2) - $(ui.helper).parent().offset().left - ($(ui.helper).parent().width() / 2);
+					var y = $(ui.helper).offset().top + ($(ui.helper).height() / 2) - $(ui.helper).parent().offset().top - ($(ui.helper).parent().height() / 2);
+          var bearing = Math.atan2(y, x) * 180 / Math.PI + 90; Math.PI; // converting radians to degrees and adding 90 to rotate from x-axis to y-axis
+          if (bearing < 0) bearing = 360 + bearing;
+
+					$('#virtual_direction_estimates_' + direction_estimate_number + '_bearing').val(bearing);
+					
+					//var targetId = $(ui.helper).attr("id").split("-")[1];
+					//var pointingArea = $(ui.helper).parent();
+					//drawLineTo(targetId, pointingArea);
+				}
+    });
+		
+    $(".piece").hover(
+      function(event) {
+        var id = $(event.target).attr("id").split("-")[1];
+				var pointingPage = $(event.target).closest(".page").attr("id").split("-")[1];
+        <% for landmark in @virtual_environment.virtual_landmarks %>
+          if (id == <%= landmark.id %>) {
+            building_name = "<%= landmark.name %>";
+            icon_src = "/images/vambler/facades/<%= landmark.icon_image %>";
+          }
+        <% end %>
+        
+        $("#pointing_page-" + pointingPage + " .building-facade-display").html('<p><img src="' + icon_src + '"/><br/>' + building_name + '</p>');
+      }, 
+      function(event) {
+				var pointingPage = $(event.target).closest(".page").attr("id").split("-")[1];
+        $("#pointing_page-" + pointingPage + " .building-facade-display").empty();
+      }
+    );
+		
+  });
+	
+	/*function drawLineTo(targetId, pointingArea) {
+		var lineToTarget = eval("lineToTarget" + targetId);
+		var x = $('#target-' + targetId).position().left + 75;
+		var y = $('#target-' + targetId).position().top + 10;
+		var g = $(pointingArea).svg('get').group({stroke: 'black', strokeWidth: 2}); 
+		$(pointingArea).svg('get').clear();
+		lineToTarget = $(pointingArea).svg('get').line(g, 350, 350, x, y);
+	}*/
+</script>
+<style type="text/css">
+.container {
+	width: 1024px;
+}
+.page {
+	width: 1024px;
+}
+.pointing_area {
+	float: left;
+  width: 650px;
+  height: 600px;
+	background-image: url('/images/vambler/pointing-circle.png');
+	background-repeat:no-repeat;
+	background-position: center;
+}
+.pointing_location {
+  position: relative;
+	left: 250px;
+	top: 290px;
+	width: 150px;
+  height: 20px;
+  font: 15pt Calibrini, Helvetica, Arial, sans-serif;
+  text-align: center;
+  border: solid 1px #CCC;
+  background: #000;
+	color: #FFF;
+}
+.facing_location {
+  position: relative;
+  left: 250px;
+  top: -10px;
+  width: 150px;
+  height: 20px;
+  font: 15pt Calibrini, Helvetica, Arial, sans-serif;
+  text-align: center;
+  border: solid 1px #CCC;
+  background: #000;
+  color: #FFF;
+}
+.target {
+	position: relative;
+	left: 250px;
+  width: 150px;
+  height: 20px;
+	margin: 2px;
+  font: 15pt Calibrini, Helvetica, Arial, sans-serif;
+  text-align: center;
+  border: solid 1px #000;
+  background: #CCC;
+}
+.building-facade-display {
+  float: right;
+  width: 360px;
+  height: 150px;
+  font-size: 16pt;
+	text-align: right;
+}
+.button_area {
+	clear: both;
+}
+</style>
+
+<div class="span-24 last">
+	<%= form_for @virtual_direction_test, :url => :study_instrument, :html => {:id => "virtual_direction_test_form", :name => "virtual_direction_test_form"} do |f| %>
+	
+	<% total_direction_estimates = 0 %>
+	<% pointing_page_index = 0 %>
+	<% for pointing_location in @virtual_environment.virtual_landmarks %>
+	<div class="page" id="pointing_page-<%= pointing_page_index %>" style="height: 650px;">
+	  <p style="font-size: 12pt;">You are at the <strong><%= pointing_location.name %></strong> diamond facing the <strong><%= pointing_location.next_landmark_on_route.name %></strong> diamond. Drag the pieces to their appropriate locations on the circle.</p>
+	
+	  <div class="pointing_area" id="pointing_area-<%= pointing_location.id %>">
+	  	<div class="pointing_location piece" id="pointing_location-<%= pointing_location.id %>"><%= pointing_location.name.split(" ").first %> diamond</div>
+			
+			<div class="facing_location piece" id="facing_location-<%= pointing_location.next_landmark_on_route.id %>"><%= pointing_location.next_landmark_on_route.name.split(" ").first %> diamond</div>
+	    
+			<% for target in @virtual_environment.virtual_landmarks %>
+	     <div class="target piece {direction_estimate_number: '<%= total_direction_estimates %>'}" id="target-<%= target.id %>">
+	     	 <%= target.name %>
+				 <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][start_landmark_id]", pointing_location.id %>
+				 <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][facing_landmark_id]", pointing_location.next_landmark_on_route.id %>
+				 <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][target_landmark_id]", target.id %>
+				 <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][bearing]", 0 %>
+			 </div>
+			 <% total_direction_estimates = total_direction_estimates + 1 %>
+	    <% end %>
+	  </div>
+		
+		<div class="building-facade-display"></div>
+		
+		<div class="button_area">
+			<% if pointing_location == @virtual_environment.virtual_landmarks.last %>
+			  <p align="center"><%= submit_tag 'I am Finished', :class => "button" %></p>
+			<% else %>
+			  <p align="center"><input type="button" class="button next_button" value="Next"/></p>
+			<% end %>
+		</div>
+	</div>
+	<% pointing_page_index = pointing_page_index + 1 %>
+	<% end %>
+	
+	<%= hidden_field_tag "total_direction_estimates", total_direction_estimates - 1 %>
+	<% end %>
+</div>

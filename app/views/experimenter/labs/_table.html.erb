@@ -1,0 +1,18 @@
+<h2>Labs</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Lab name</th>
+      <th>&#35; of experimenters</th>
+      <th>&#35; of studies</th>
+    </tr>
+  </thead>
+  <% for lab in @labs %>
+  <tr>
+    <td><strong><%= link_to lab.name, experimenter_lab_path(lab) %></strong></td>
+    <td><%= pluralize(lab.experimenters.length, "study") %></td>
+    <td><%= pluralize(lab.studies.length, "study") %></td>
+  </tr>
+  <% end %>
+</table>

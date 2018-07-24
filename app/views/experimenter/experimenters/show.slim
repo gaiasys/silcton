@@ -1,0 +1,23 @@
+- content_for :body do
+  h1 = @experimenter.full_name
+  ul.nav.nav-tabs
+    li.active 
+      a View
+    - if current_experimenter.administrator or (current_experimenter.lab_manager and current_experimenter.lab == @experimenter.lab)
+      li = link_to "Edit", edit_experimenter_experimenter_path(@experimenter)
+
+  p
+    strong E-mail address:
+    = @experimenter.email
+  p
+    strong Lab:
+    = @experimenter.lab.name
+  p
+    strong Lab manager?
+    = @experimenter.lab_manager ? 'yes' : 'no'
+  p
+    strong Administrator?
+    = @experimenter.administrator ? 'yes' : 'no'
+
+
+= render :template => '/experimenter/layout'

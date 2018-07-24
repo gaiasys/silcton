@@ -1,0 +1,8 @@
+- content_for :body do
+  = render "table"
+  
+  - if current_experimenter.administrator or current_experimenter.lab_manager
+    .pull-right
+      = link_to "Create Experimenter", new_experimenter_experimenter_path, :class => "btn btn-primary"
+
+= render :template => '/experimenter/layout'

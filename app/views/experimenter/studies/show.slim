@@ -1,0 +1,106 @@
+- content_for :body do
+  h1 = @study.name
+  ul.nav.nav-tabs
+    li.active
+      a href="#view" data-toggle="tab" View Study
+    - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
+      li
+        = link_to "Edit Study", edit_experimenter_study_path(@study)
+    li
+      a href="#participants" data-toggle="tab" View Participants
+    li
+      = link_to "View Data", data_experimenter_study_path(@study)
+
+  .tab-content
+    .tab-pane.active#settings
+      p
+        strong Active?
+        - if @study.active
+          span style="color: green;" Yes, currently active.
+        - else
+          span style="color: red;" Not currently active.
+
+      p 
+        strong URL for participants: 
+        = link_to study_start_url(@study), study_start_url(@study)
+
+      p
+        strong Participant identification:
+        ul
+          - if @study.ask_participant_id
+            li Ask for ID (can be any number or characters)
+          - if @study.ask_name
+            li Ask for name (first and last)
+          - if @study.ask_email
+            li Ask for e-mail address
+          - if @study.ask_age
+            li Ask for age
+          - if @study.ask_sex
+            li Ask for sex
+
+      p
+        strong When to share data: 
+        = @study.when_to_share_data
+
+      p
+        strong Start button(s):
+        - if @study.kind_of_start_buttons == 'vambler'
+          | Virtual SILCton ("Mouse" and "Joystick")
+        - else
+          | Standard
+
+      h2 Instruments
+      table.table.table-striped
+        thead
+          tr
+            th Order
+            th Instrument Name
+            th Version
+        tbody
+          - for instrument in @study.instrument_in_studies
+            tr
+              td = instrument.order + 1
+              td
+                - if instrument.instrument == 'Static Page'
+                  = instrument.static_page.name
+                - else 
+                  = instrument.instrument
+              td = instrument.version
+
+      h2 Instructions
+      p
+        strong Welcome text: 
+        == @study.welcome_text
+      p
+        strong Completion text: 
+        == @study.completion_text
+
+    .tab-pane#participants
+      table.table.table-striped.data-table
+        thead
+          tr
+            th Participant Identification
+            th Elected to share data?
+            th Age
+            th Sex
+            th First Name
+            th Last Name
+            th E-mail
+            th Date
+            - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
+              th Actions
+        tbody
+          - for p in @study.participants
+            tr
+              td = p.identification
+              td = p.share_data ? 'yes' : 'no'
+              td = p.age
+              td = p.sex
+              td = p.participant_personal_record.first_name if p.participant_personal_record
+              td = p.participant_personal_record.last_name if p.participant_personal_record
+              td = p.participant_personal_record.email if p.participant_personal_record
+              td = p.created_at
+              - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
+                td= button_to "Delete", experimenter_study_participant_path(p.study, p), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete the records for #{p.identification}?"
+
+= render :template => '/experimenter/layout'

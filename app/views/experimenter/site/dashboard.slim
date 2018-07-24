@@ -1,0 +1,7 @@
+- content_for :body do
+  - if current_experimenter.administrator
+    = render "/experimenter/labs/table"
+  = render "/experimenter/studies/table"
+  = render "/experimenter/experimenters/table"
+
+= render :template => '/experimenter/layout'

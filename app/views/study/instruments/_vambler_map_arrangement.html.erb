@@ -1,0 +1,81 @@
+<script language="javascript">
+	var lastOrder = 0;
+	
+	$(function() {
+		$('.piece').draggable();
+		$('#map-arrangement-area').droppable({
+			drop: function(event, ui) {
+				var x = $(ui.draggable).offset().left - $('#map-arrangement-area').offset().left;
+				var y = $(ui.draggable).offset().top - $('#map-arrangement-area').offset().top; 
+				var id = $(ui.draggable).attr("id");
+				$('#' + id + '-x').val(x);
+				$('#' + id + '-y').val(y);
+				
+				var order = $('#' + id + '-order');
+				if (order.val() > -1) {
+				}
+				else {
+					++lastOrder;
+					order.val(lastOrder);
+				}
+			}
+		});
+		
+	  $(".piece").hover(
+	    function(event) {
+				var id = $(event.target).attr("id").split("-")[1];
+				<% for landmark in @virtual_environment.virtual_landmarks %>
+				  if (id == <%= landmark.id %>) {
+						building_name = "<%= landmark.name %>";
+						icon_src = "/images/vambler/facades/<%= landmark.icon_image %>";
+					}
+				<% end %>
+				
+	      $("#building-facade-display").html('<p><img src="' + icon_src + '"/><br/>' + building_name + '</p>');
+	    }, 
+	    function(event) {
+	      $("#building-facade-display").empty();
+	    }
+	  );
+  });
+</script>
+
+<style>
+#map-arrangement-area {
+	width: <%= @virtual_environment.map_arrangement_pixel_width %>px;
+	height: <%= @virtual_environment.map_arrangement_pixel_height %>px;
+	border: solid 3px #000;
+}
+#pieces-area {
+  padding-top: 6px;
+	padding-bottom: 20px;
+}
+#building-facade-display {
+	float: right;
+  width: 400px;
+  height: 150px;
+	font-size: 16pt;
+}
+</style>
+
+<%= form_for @virtual_map_arrangement, :url => :study_instrument, :html => {:id => "virtual_map_arrangement_form", :name => "virtual_map_arrangement_form"} do |f| %>
+
+</div> <!-- this is to close the div.container -->
+<!-- <div class="span-24 last" style="width: 1024px;"> -->
+<p style="font-size: 12pt;">Drag and drop the pieces into the box to create a model of the virtual world. Use the entire space of the box.</p>
+<div id="building-facade-display"></div>
+<div id="map-arrangement-area"></div>
+<div id="pieces-area">
+	<% for piece in @virtual_environment.virtual_landmarks %>
+    <img id="piece-<%= piece.id %>" class="piece" src="/images/vambler/map_arrangement/<%= piece.map_arrangement_piece_image %>"/>
+		<%= hidden_field_tag "piece-#{piece.id}-x" %>
+		<%= hidden_field_tag "piece-#{piece.id}-y" %>
+		<%= hidden_field_tag "piece-#{piece.id}-order", :value => "-1" %>
+	<% end %>
+</div>
+
+</div>
+
+<p align="center"><%= submit_tag 'I am Finished', :class => "button" %></p>
+
+<% end %>

@@ -1,0 +1,23 @@
+<% unity_file = "/unity/silcton_free_exploration.unity3d" %>
+
+<script src="/assets/UnityObject2.js"></script>
+
+<script type="text/javascript">
+  var u = new UnityObject2();
+
+  function recordPositionLine(positionString) {
+    $log = $("#virtual_navigation_log");
+    var previousLog = $log.val();
+    $log.val(previousLog + "\n" + positionString)
+  }
+
+  $(document).ready(function() {
+    u.initPlugin($("#unity-embed")[0], "<%= unity_file %>");
+  });
+</script>
+
+<%= form_tag study_instrument_path(:study_id=>@study.id,:instrument_id=>@instrument.order) %>
+<div id="unity-embed" style="width: 1024px; height: 768px; border: 1px black solid"></div>
+<input type="hidden" name="virtual_navigation_log[log]" id="virtual_navigation_log" />
+<%= submit_tag 'I am Finished', :class => "button" %>
+</form>

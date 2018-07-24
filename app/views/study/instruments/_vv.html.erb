@@ -1,0 +1,46 @@
+<script language="javascript">
+    function passTheAnswers(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, q20, q21, q22, q23, q24){
+		$('#vv_record_q1').val(q1);
+        $('#vv_record_q2').val(q2);
+        $('#vv_record_q3').val(q3);
+        $('#vv_record_q4').val(q4);
+        $('#vv_record_q5').val(q5);
+        $('#vv_record_q6').val(q6);
+        $('#vv_record_q7').val(q7);
+        $('#vv_record_q8').val(q8);
+        $('#vv_record_q9').val(q9);
+        $('#vv_record_q10').val(q10);
+        $('#vv_record_q11').val(q11);
+        $('#vv_record_q12').val(q12);
+        $('#vv_record_q13').val(q13);
+        $('#vv_record_q14').val(q14);
+        $('#vv_record_q15').val(q15);
+        $('#vv_record_q16').val(q16);
+        $('#vv_record_q17').val(q17);
+        $('#vv_record_q18').val(q18);
+        $('#vv_record_q19').val(q19);
+        $('#vv_record_q20').val(q20);
+        $('#vv_record_q21').val(q21);
+        $('#vv_record_q22').val(q22);
+        $('#vv_record_q23').val(q23);
+        $('#vv_record_q24').val(q24);
+        
+        // submit the form
+        document.vv_form.submit();
+    }
+</script>
+
+<%= form_for @vv_record, :url => :study_instrument, :html => {:id => "vv_form", :name => "vv_form"} do |f| %>
+<div align="center">
+    <h1 style="color: #000;">Guay's Visualization of Viewpoints</h1>
+    <br/>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="700" height="550">
+        <param name="movie" value="/swf/guay.swf" /><param name="quality" value="high" />
+        <embed src="/swf/guay.swf" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="700" height="550">
+        </embed>
+    </object>
+</div>
+<% (1..24).each do |q| %>
+<%= eval "f.hidden_field :q#{q}" %>
+<% end %>
+<% end %>

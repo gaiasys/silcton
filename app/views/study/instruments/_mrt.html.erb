@@ -1,0 +1,1328 @@
+		<script language="javascript" type="text/javascript">
+		var timer;
+// check that the three practice problems were answered correctly
+		// display results
+		// if all are correct, enable "I am Ready to Begin" button
+		function practice_check () {
+		var complete = new Boolean();
+		complete = true;
+
+		// practice 1: first and second drawings are correct
+		if (!document.mrt_form.mrt_qinst4_a.checked) document.getElementById("inst4a").style.background = "#FF706C";
+		else document.getElementById("inst4a").style.background = "#FFFFFF";
+		if (!document.mrt_form.mrt_qinst4_b.checked) document.getElementById("inst4b").style.background = "#FF706C";
+		else document.getElementById("inst4b").style.background = "#FFFFFF";
+		if (document.mrt_form.mrt_qinst4_c.checked) document.getElementById("inst4c").style.background = "#FF706C";
+		else document.getElementById("inst4c").style.background = "#FFFFFF";
+		if (document.mrt_form.mrt_qinst4_d.checked) document.getElementById("inst4d").style.background = "#FF706C";
+		else document.getElementById("inst4d").style.background = "#FFFFFF";
+
+		if (document.mrt_form.mrt_qinst4_a.checked
+			&& document.mrt_form.mrt_qinst4_b.checked
+			&& !(document.mrt_form.mrt_qinst4_c.checked)
+			&& !(document.mrt_form.mrt_qinst4_d.checked)) {
+			document.getElementById("mrt_qinst4_incorrect").style.display = "none";
+			document.getElementById("mrt_qinst4_correct").style.display = "block";
+		}
+		else {
+			document.getElementById("mrt_qinst4_correct").style.display = "none";
+			document.getElementById("mrt_qinst4_incorrect").style.display = "block";
+			complete = false;
+		}
+
+		// practice 2: first and third drawings are correct
+		if (!document.mrt_form.mrt_qinst5_a.checked) document.getElementById("inst5a").style.background = "#FF706C";
+		else document.getElementById("inst5a").style.background = "#FFFFFF";
+		if (document.mrt_form.mrt_qinst5_b.checked) document.getElementById("inst5b").style.background = "#FF706C";
+		else document.getElementById("inst5b").style.background = "#FFFFFF";
+		if (!document.mrt_form.mrt_qinst5_c.checked) document.getElementById("inst5c").style.background = "#FF706C";
+		else document.getElementById("inst5c").style.background = "#FFFFFF";
+		if (document.mrt_form.mrt_qinst5_d.checked) document.getElementById("inst5d").style.background = "#FF706C";
+		else document.getElementById("inst5d").style.background = "#FFFFFF";
+
+		if (document.mrt_form.mrt_qinst5_a.checked
+			&& !(document.mrt_form.mrt_qinst5_b.checked)
+			&& document.mrt_form.mrt_qinst5_c.checked
+			&& !(document.mrt_form.mrt_qinst5_d.checked)) {
+			document.getElementById("mrt_qinst5_incorrect").style.display = "none";
+			document.getElementById("mrt_qinst5_correct").style.display = "block";
+		}
+		else {
+			document.getElementById("mrt_qinst5_correct").style.display = "none";
+			document.getElementById("mrt_qinst5_incorrect").style.display = "block";
+			complete = false;
+		}
+
+		// practice 3: second and third drawings are correct
+		if (document.mrt_form.mrt_qinst6_a.checked) document.getElementById("inst6a").style.background = "#FF706C";
+		else document.getElementById("inst6a").style.background = "#FFFFFF";
+		if (!document.mrt_form.mrt_qinst6_b.checked) document.getElementById("inst6b").style.background = "#FF706C";
+		else document.getElementById("inst6b").style.background = "#FFFFFF";
+		if (!document.mrt_form.mrt_qinst6_c.checked) document.getElementById("inst6c").style.background = "#FF706C";
+		else document.getElementById("inst6c").style.background = "#FFFFFF";
+		if (document.mrt_form.mrt_qinst6_d.checked) document.getElementById("inst6d").style.background = "#FF706C";
+		else document.getElementById("inst6d").style.background = "#FFFFFF";
+
+		if (!(document.mrt_form.mrt_qinst6_a.checked)
+			&& document.mrt_form.mrt_qinst6_b.checked
+			&& document.mrt_form.mrt_qinst6_c.checked
+			&& !(document.mrt_form.mrt_qinst6_d.checked)) {
+			document.getElementById("mrt_qinst6_incorrect").style.display = "none";
+			document.getElementById("mrt_qinst6_correct").style.display = "block";
+		}
+		else {
+			document.getElementById("mrt_qinst6_correct").style.display = "none";
+			document.getElementById("mrt_qinst6_incorrect").style.display = "block";
+			complete = false;
+		}
+
+		// all correct?
+		if (complete) $('#begin_button').button("option", "disabled", false);
+		else $('#begin_button').button("option", "disabled", true);
+		}
+
+		// hide the current page and change its page number to be standard
+		// and show the next page and change its page number to be highlighted
+		function show_and_hide (page_to_hide, page_to_show, old_page_number, new_page_number) {
+		document.getElementById(page_to_hide).style.display = "none";
+		document.getElementById(page_to_show).style.display = "block";
+		document.getElementById(old_page_number).className = "";
+		document.getElementById(new_page_number).className = "selected_page";
+		}
+
+		// when user advances from instructions page, start the timer going
+		// and then submit the overall form, with all of the 10 or 20 questions,
+		// when the time is up
+		function start_timer (part) {
+		three_minutes = 3 * 60 * 1000;
+		if (part == 1) {
+			timer = setTimeout("end_part1_and_continue()", three_minutes);
+		}
+		else if (part == 2) {
+			timer = setTimeout("end_part2_and_stop()", three_minutes);
+		}
+		}
+		
+		function clear_timer () {
+			clearTimeout(timer);
+		}
+
+		function end_part1_and_continue() {
+		show_and_hide("mrt_part_1", "part1_complete", "page_number_part1", "page_number_part1_complete");
+		}
+
+		function end_part2_and_stop() {
+		show_and_hide("mrt_part_2", "part2_complete", "page_number_part2", "page_number_part2_complete");
+		}
+		</script>
+		
+		<%= form_for @mrt_record, :url => :study_instrument, :html => {:id => "mrt_form", :name => "mrt_form"} do |f| %>
+		
+		<!-- page icons -->
+		<ul class="page_number" id="page_numbers">
+			<li id="page_number_instructions" class="selected_page">Instructions
+			</li>
+			<li id="page_number_part1">Part I
+			</li>
+			<li id="page_number_part1_complete">Break
+			</li>
+			<li id="page_number_part2">Part II
+			</li>
+			<li id="page_number_part2_complete">All Finished
+			</li>
+		</ul>
+		
+		<!-- mrt instructions -->
+		<div class="page_instructions" id="mrt_page_instructions">
+			<div class="instructions" style="height: 600px;">
+				<div class="heading">
+					Mental Rotation Test
+				</div>
+				<p>
+					This is a test of your ability to look at a drawing of a given object and find the same object within a set of dissimilar objects. The only difference between the original object and the chosen object will be that they are presented at different angles. An illustration of this principle is given below where the same single object is given in five different positions. Look at each of them to satisfy yourself that they are only presented at different angles from one another.
+				</p>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td>
+							<img src="/images/mrt/inst1a.gif" width="127" height="127">
+						</td>
+						<td>
+							<img src="/images/mrt/inst1b.gif" width="127" height="127">
+						</td>
+						<td>
+							<img src="/images/mrt/inst1c.gif" width="127" height="127">
+						</td>
+						<td>
+							<img src="/images/mrt/inst1d.gif" width="127" height="127">
+						</td>
+						<td>
+							<img src="/images/mrt/inst1e.gif" width="127" height="127">
+						</td>
+					</tr>
+				</table>
+				<p>
+					Below are two drawings of new objects. They cannot be made to match the above five drawings. Please note that you may not turn over the objects. Satisfy yourself that they are different from the above.
+				</p>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="105">
+							<img src="/images/mrt/inst2a.gif" width="127" height="127">
+						</td>
+						<td width="105">
+							<img src="/images/mrt/inst2b.gif" width="127" height="127">
+						</td>
+					</tr>
+				</table>
+				<p>
+					&nbsp;
+				</p>
+				<div class="heading">
+					Sample Problems
+				</div>
+				<p>
+					Now let's do some sample problems. For each problem there is a primary object on the far left. You are to determine which two of four objects to the right are the same object given on the far left. In each problem always two of the four drawings are the same object as the one on the left. You are to check the boxes below the correct ones, and leave the incorrect ones blank. The first sample problem is done for you.
+				</p>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/inst3.gif" width="127" height="127">
+						</td>
+						<td>
+							<br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/inst3a.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst3_a" type="checkbox" value="a" checked>
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/inst3b.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst3_b" type="checkbox" value="b">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/inst3c.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst3_c" type="checkbox" value="c" checked>
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/inst3d.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst3_d" type="checkbox" value="d">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<p>
+					&nbsp;
+				</p>
+				<div class="heading">
+					Your Turn
+				</div>
+				<p>
+					Do the rest of the sample problems yourself. Which two drawings of the four on the right show the same object as the one on the left? There are always two and only two correct answers for each problem. Check the boxes under the two correct drawings.
+				</p>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="127">
+							<img src="/images/mrt/inst4.gif" width="127" height="127">
+							<div id="mrt_qinst4_incorrect" class="practice_problem_incorrect">
+								Incorrect
+							</div>
+							<div id="mrt_qinst4_correct" class="practice_problem_correct">
+								Correct
+							</div>
+						</td>
+						<td>
+							<br>
+						</td>
+						<td width="105" id="inst4a">
+							<div align="center">
+								<img src="/images/mrt/inst4a.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst4_a" type="checkbox" value="a">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst4b">
+							<div align="center">
+								<img src="/images/mrt/inst4b.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst4_b" type="checkbox" value="b">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst4c">
+							<div align="center">
+								<img src="/images/mrt/inst4c.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst4_c" type="checkbox" value="c">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst4d">
+							<div align="center">
+								<img src="/images/mrt/inst4d.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst4_d" type="checkbox" value="d">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="127">
+							<img src="/images/mrt/inst5.gif" width="127" height="127">
+							<div id="mrt_qinst5_incorrect" class="practice_problem_incorrect">
+								Incorrect
+							</div>
+							<div id="mrt_qinst5_correct" class="practice_problem_correct">
+								Correct
+							</div>
+						</td>
+						<td>
+							<br>
+						</td>
+						<td width="105" id="inst5a">
+							<div align="center">
+								<img src="/images/mrt/inst5a.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst5_a" type="checkbox" value="a">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst5b">
+							<div align="center">
+								<img src="/images/mrt/inst5b.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst5_b" type="checkbox" value="b">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst5c">
+							<div align="center">
+								<img src="/images/mrt/inst5c.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst5_c" type="checkbox" value="c">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst5d">
+							<div align="center">
+								<img src="/images/mrt/inst5d.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst5_d" type="checkbox" value="d">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="127">
+							<img src="/images/mrt/inst6.gif" width="127" height="127">
+							<div id="mrt_qinst6_incorrect" class="practice_problem_incorrect">
+								Incorrect
+							</div>
+							<div id="mrt_qinst6_correct" class="practice_problem_correct">
+								Correct
+							</div>
+						</td>
+						<td>
+							<br>
+						</td>
+						<td width="105" id="inst6a">
+							<div align="center">
+								<img src="/images/mrt/inst6a.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst6_a" type="checkbox" value="a">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst6b">
+							<div align="center">
+								<img src="/images/mrt/inst6b.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst6_b" type="checkbox" value="b">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst6c">
+							<div align="center">
+								<img src="/images/mrt/inst6c.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst6_c" type="checkbox" value="c">
+								</p>
+							</div>
+						</td>
+						<td width="105" id="inst6d">
+							<div align="center">
+								<img src="/images/mrt/inst6d.gif" width="127" height="127">
+								<p>
+									<input name="mrt_qinst6_d" type="checkbox" value="d">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<div align="right">
+					<input type="button" value="Check My Answers" name="check_practice" class="button" onclick="practice_check()">
+				</div>
+				<p>
+					This test has two parts. You will have 3 minutes for each of the two parts. Please use the entire time to select and check over your answers. When the time is up, you will be automatically advanced to the next screen. Remember: There are always two and only two correct answers for each item.
+				</p>
+				<p>
+					Work as quickly as you can without sacrificing accuracy. Your score on this test will reflect both the correct and incorrect responses. Therefore, it will not be to your advantage to guess unless you have some idea which choice is correct.
+				</p><br>
+				<div align="right">
+					<input type="button" value="I am Ready to Begin" class="button" id="begin_button" onclick="show_and_hide('mrt_page_instructions', 'mrt_part_1', 'page_number_instructions', 'page_number_part1'); start_timer(1);" disabled> <!-- START THE TIMER onClick -->
+				</div>
+			</div>
+		</div>
+		<div class="page" id="mrt_part_1" style="height: 600px;">
+			<div class="instructions" style="height: 600px;">
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/1.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								1.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/1a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q1_c1" value="a" id="q1_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/1b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q1_c2" value="b" id="q1_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/1c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q1_c3" value="c" id="q1_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/1d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q1_c4" value="d" id="q1_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/2.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								2.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/2a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q2_c1" value="a" id="q2_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/2b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q2_c2" value="b" id="q2_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/2c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q2_c3" value="c" id="q2_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/2d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q2_c4" value="d" id="q2_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/3.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								3.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/3a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q3_c1" value="a" id="q3_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/3b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q3_c2" value="b" id="q3_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/3c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q3_c3" value="c" id="q3_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/3d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q3_c4" value="d" id="q3_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/4.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								4.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/4a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q4_c1" value="a" id="q4_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/4b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q4_c2" value="b" id="q4_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/4c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q4_c3" value="c" id="q4_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/4d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q4_c4" value="d" id="q4_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/5.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								5.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/5a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q5_c1" value="a" id="q5_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/5b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q5_c2" value="b" id="q5_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/5c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q5_c3" value="c" id="q5_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/5d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q5_c4" value="d" id="q5_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/6.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								6.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/6a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q6_c1" value="a" id="q6_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/6b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q6_c2" value="b" id="q6_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/6c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q6_c3" value="c" id="q6_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/6d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q6_c4" value="d" id="q6_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/7.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								7.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/7a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q7_c1" value="a" id="q7_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/7b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q7_c2" value="b" id="q7_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/7c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q7_c3" value="c" id="q7_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/7d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q7_c4" value="d" id="q7_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/8.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								8.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/8a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q8_c1" value="a" id="q8_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/8b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q8_c2" value="b" id="q8_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/8c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q8_c3" value="c" id="q8_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/8d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q8_c4" value="d" id="q8_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/9.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								9.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/9a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q9_c1" value="a" id="q9_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/9b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q9_c2" value="b" id="q9_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/9c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q9_c3" value="c" id="q9_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/9d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q9_c4" value="d" id="q9_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/10.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								10.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/10a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q10_c1" value="a" id="q10_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/10b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q10_c2" value="b" id="q10_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/10c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q10_c3" value="c" id="q10_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/10d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q10_c4" value="d" id="q10_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<% if @instrument.force_wait %>
+				<div align="center">
+					Please check over your answers until your 3 minutes are up. You will then be taken to the next part of the test.
+				</div>
+				<% else %>
+				<div align="center">
+					<input type="button" class="button" onclick="clear_timer(); end_part1_and_continue();" value="I'm Finished"/>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		
+		<!-- Part 1 complete -->
+		<div class="page_instructions" id="part1_complete" style="display: none;">
+			<div class="heading">
+				Mental Rotation Test
+			</div>
+			<p>
+				You are done with Part I. When you are ready, you may begin Part II. As before, you will have 3 minutes to complete as many items as you can.
+			</p>
+			<p align="right">
+				<input type="button" value="I Am Ready to Begin Part II" class="button" onclick="show_and_hide('part1_complete', 'mrt_part_2', 'page_number_part1_complete', 'page_number_part2'); start_timer(2);">
+			</p>
+		</div>
+		<!-- Part 2 -->
+		<div class="page" id="mrt_part_2" style="height: 600px;">
+			<div class="instructions" style="height: 600px;">
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/11.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								11.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/11a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q11_c1" value="a" id="q11_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/11b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q11_c2" value="b" id="q11_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/11c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q11_c3" value="c" id="q11_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/11d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q11_c4" value="d" id="q11_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/12.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								12.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/12a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q12_c1" value="a" id="q12_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/12b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q12_c2" value="b" id="q12_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/12c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q12_c3" value="c" id="q12_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/12d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q12_c4" value="d" id="q12_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/13.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								13.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/13a.gif" width="127" height="127">
+								<p>
+									<input name="q13_c1" type="checkbox" value="a">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/13b.gif" width="127" height="127">
+								<p>
+									<input name="q13_c2" type="checkbox" value="b">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/13c.gif" width="127" height="127">
+								<p>
+									<input name="q13_c3" type="checkbox" value="c">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/13d.gif" width="127" height="127">
+								<p>
+									<input name="q13_c4" type="checkbox" value="d">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/14.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								14.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/14a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q14_c1" value="a" id="q14_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/14b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q14_c2" value="b" id="q14_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/14c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q14_c3" value="c" id="q14_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/14d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q14_c4" value="d" id="q14_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/15.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								15.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/15a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q15_c1" value="a" id="q15_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/15b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q15_c2" value="b" id="q15_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/15c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q15_c3" value="c" id="q15_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/15d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q15_c4" value="d" id="q15_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/16.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								16.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/16a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q16_c1" value="a" id="q16_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/16b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q16_c2" value="b" id="q16_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/16c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q16_c3" value="c" id="q16_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/16d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q16_c4" value="d" id="q16_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/17.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								17.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/17a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q17_c1" value="a" id="q17_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/17b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q17_c2" value="b" id="q17_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/17c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q17_c3" value="c" id="q17_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/17d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q17_c4" value="d" id="q17_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/18.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								18.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/18a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q18_c1" value="a" id="q18_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/18b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q18_c2" value="b" id="q18_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/18c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q18_c3" value="c" id="q18_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/18d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q18_c4" value="d" id="q18_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/19.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								19.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/19a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q19_c1" value="a" id="q19_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/19b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q19_c2" value="b" id="q19_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/19c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q19_c3" value="c" id="q19_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/19d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q19_c4" value="d" id="q19_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<table border="0" align="center">
+					<tr valign="top">
+						<td width="150">
+							<img src="/images/mrt/20.gif" width="127" height="127">
+						</td>
+						<td>
+							<div class="number">
+								20.
+							</div><br>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/20a.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q20_c1" value="a" id="q20_c1">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/20b.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q20_c2" value="b" id="q20_c2">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/20c.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q20_c3" value="c" id="q20_c3">
+								</p>
+							</div>
+						</td>
+						<td width="105">
+							<div align="center">
+								<img src="/images/mrt/20d.gif" width="127" height="127">
+								<p>
+									<input type="checkbox" name="q20_c4" value="d" id="q20_c4">
+								</p>
+							</div>
+						</td>
+					</tr>
+				</table><br>
+				<% if @instrument.force_wait %>
+				<div align="center">
+					Please check over your answers until your 3 minutes are up. You will then be taken to the next part of the test.
+				</div>
+				<% else %>
+				<div align="center">
+					<input type="button" class="button" onclick="clear_timer(); end_part2_and_stop();" value="I'm Finished"/>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		
+		<!-- Part 2 complete -->
+		<div class="page_instructions" id="part2_complete" style="display: none;">
+			<div class="heading">
+				Mental Rotation Test
+			</div>
+			<p>
+				You have completed the Mental Rotation Test.
+			</p>
+			<p align="center">
+				<%= submit_tag 'Next', :class => "button" %>
+			</p>
+		</div>
+		
+		<% end %>

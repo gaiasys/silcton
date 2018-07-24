@@ -1,0 +1,21 @@
+<%= content_for :head do %> 
+<% end -%>
+
+<%= content_for :content do %> 
+<%= render :partial => 'study/instruments/sbsod' if @instrument.instrument == 'SBSOD' %>
+<%= render :partial => 'study/instruments/pf' if @instrument.instrument == 'PF' %>
+<%= render :partial => 'study/instruments/vv' if @instrument.instrument == 'VV' %>
+<%= render :partial => 'study/instruments/mrt' if @instrument.instrument == 'MRT' %>
+<%= render :partial => 'study/instruments/pvas' if @instrument.instrument == 'PVAS' %>
+<%= render :partial => 'study/instruments/psas' if @instrument.instrument == 'PSAS' %>
+<%= render :partial => 'study/instruments/vambler_demographics_questionnaire' if @instrument.instrument == 'Vambler Demographics' %>
+<%= render :partial => 'study/instruments/vambler_route_learning' if @instrument.instrument == 'Vambler Route Learning' %>
+<%= render :partial => 'study/instruments/silcton_free_exploration' if @instrument.instrument == 'Silcton Free Exploration' %>
+<%= render :partial => 'study/instruments/vambler_onsite_pointing' if @instrument.instrument == 'Vambler On-site Pointing' %>
+<%= render :partial => 'study/instruments/vambler_offsite_pointing' if @instrument.instrument == 'Vambler Off-site Pointing' %>
+<%= render :partial => 'study/instruments/vambler_distance_estimates' if @instrument.instrument == 'Vambler Distance Estimates' %>
+<%= render :partial => 'study/instruments/vambler_map_arrangement' if @instrument.instrument == 'Vambler Map Arrangement' %>
+<%= render :partial => 'study/instruments/static_page' if @instrument.instrument == 'Static Page' %>
+<% end -%>
+
+<%= render :partial => 'base' %>

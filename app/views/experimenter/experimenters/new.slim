@@ -1,0 +1,21 @@
+- content_for :body do
+  = simple_form_for([:experimenter, @experimenter], :html => { :class => 'form-horizontal' }) do |f|
+    h1 Create Experimenter
+        
+    - if f.error_messages
+      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    - if current_experimenter.administrator
+      = f.association :lab, :as => :select, :include_blank => false
+    - elsif current_experimenter.lab_manager
+      = f.association :lab, :as => :select, :include_blank => false, :collection => [current_experimenter.lab]
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
+    = f.input :lab_manager
+          
+    .form-actions
+      = f.submit "Create User", {:class => "btn btn-primary"}
+      
+= render :template => '/experimenter/layout'

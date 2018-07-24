@@ -1,0 +1,83 @@
+- content_for :body do
+  = simple_form_for([:experimenter, @study], :html => { :class => 'form-horizontal' }) do |f|
+    h1 = @study.name
+    ul.nav.nav-tabs
+      li
+        = link_to "View Study", experimenter_study_path(@study)
+      li.active 
+        a Edit Study
+        
+    - if f.error_messages
+      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    = f.input :name
+    = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => @study.lab.experimenters, :include_blank => false
+    = f.input :active
+    = f.input :ask_participant_id, :label => 'Ask for participant ID?'
+
+    h2 When to Share Data
+    = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
+
+    h2 Start Button(s)
+    = f.input :kind_of_start_buttons, :as => :select, :collection => [['Standard', "standard"], ['Virtual SILCton ("Mouse" and "Joystick")', "vambler"]], :include_blank => false
+
+    h2 Instruments
+    p#add-another-instrument
+      ' Add another instrument: 
+      select#instrument-to-add-select
+        option Virtual SILCton Demographics Questionnaire
+        option SBSOD (fixed order)
+        option PSAS (short version, randomized)
+        option PSAS (long version, randomized)
+        option PVAS (randomized)
+        option MRT (forced wait)
+        option Virtual SILCton Route Learning (Main Routes)
+        option Virtual SILCton Route Learning (Connector Routes)
+        option Virtual SILCton Free Exploration
+        option Virtual SILCton On-site Pointing
+        option Virtual SILCton Off-site Pointing
+        option Virtual SILCton Distance Estimates
+        option Virtual SILCton Map Arrangements
+      ' 
+      a.btn.btn-primary#add-button Add
+    p Drag rows up and down to reorder the instruments.
+    table.table#instruments-in-study-table
+      thead
+        tr
+          th Order
+          th Instrument
+          th Version
+          th Randomize?
+        tbody
+          = f.fields_for :instrument_in_studies do |iis|
+            tr
+              td
+                span.order = iis.object.order + 1
+                = iis.input :order, :as => :hidden, :input_html => {:class => 'order-field'}
+              td
+                = iis.object.instrument
+                = iis.input :instrument, :as => :hidden
+              td 
+                = iis.object.version
+                = iis.input :version, :as => :hidden
+              td 
+                = iis.object.randomize ? 'yes' : ''
+                = iis.input :randomize, :as => :hidden
+              td
+                a.btn.btn-danger.remove-button Remove
+                = iis.hidden_field :_destroy, :class => 'destroy-field'
+
+    h2 Instructions
+    = f.input :welcome_text, :input_html => {:class => 'span6'}
+    = f.input :completion_text, :input_html => {:class => 'span6'}
+
+    .form-actions
+      = link_to "Cancel", experimenter_study_path(@study), {:class => "btn", :style => 'margin-right: 10px;'}
+      = f.submit "Save Study", {:class => "btn btn-primary"}
+
+  h2 Delete Study
+  p Deleting this study will permanently remove all associated participant records.
+  .form-horizontal
+    .form-actions
+      = button_to "Delete Study", experimenter_study_path(@study), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete #{@study.name}?"
+      
+= render :template => '/experimenter/layout'

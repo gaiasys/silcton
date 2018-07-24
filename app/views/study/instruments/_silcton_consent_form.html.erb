@@ -1,0 +1,16 @@
+<h1 align="center"><%= @silcton_consent_form.name %></h1>
+
+<%== @silcton_consent_form.body %>
+
+<%= form_tag study_instrument_path(:study_id=>@study.id,:instrument_id=>@instrument.order), :id => 'static-page-form' %>
+  <% if @silcton_consent_form.buttons == "i_agree" %>
+	 <p align="center"><%= submit_tag 'I Agree', :class => "button" %></p>
+	<% elsif @silcton_consent_form.buttons == "i_agree_or_no_i_dont" %>
+		<p align="center">
+			<%= submit_tag 'Yes, I Agree', :class => "button" %>
+			<%= submit_tag "No, I Don't Agree", :class => "button" %>
+		</p>
+	<% elsif @silcton_consent_form.buttons == "next" %>
+	 <p align="center"><%= submit_tag 'Next', :class => "button" %></p>
+	<% end %>
+</form>

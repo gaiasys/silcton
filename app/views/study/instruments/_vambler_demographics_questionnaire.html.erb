@@ -1,0 +1,62 @@
+<style>
+  p {
+    font-size: 12pt;
+  }
+</style>
+
+<h1 align="center">Demographics Questionnaire</h1>
+
+<%= form_for @vambler_demographics_record, :url => :study_instrument, :html => {:id => "vambler_demographics_form", :name => "vambler_demographics_form"} do |f| %>
+
+<p>Completion of this form is voluntary, and any information that you provide will be kept confidential. Our funding agency (National Institute of Health) asks that we obtain the following information from each participant so that NIH can monitor gender and minority inclusion in research studies.</p>
+
+<div style="float: right; width: 350px; background: #FFEC8B; font-size: 10pt;">
+<p>Definitions:</p>
+  <ul>
+    <li>Hispanic / Latino: A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin, regardless of race. The term "Spanish origin" can also be used in addition to "Hispanic or Latino."</li>
+    <li>American Indian / Alaskan Native: A person having origins in any of the original peoples of North, Central, or South America, and who maintains tribal affiliations or community attachment.</li>
+    <li>Asian: A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam. (Note: Individuals from the Philippine Islands have been recorded as Pacific Islanders in previous data collection strategies.)</li>
+    <li>Black / African American: A person having origins in any of the black racial groups of Africa. Terms such as "Haitian" or "Negro" can be used in addition to "Black or African American."</li>
+    <li>White: A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.</li>
+  </ul>
+</div>
+
+<p>Gender: <%= select_tag "vambler_demographics_record[gender]", options_for_select(["Female", "Male"]) %></p>
+  
+<p>
+  Ethnic category:
+  <%= select_tag "vambler_demographics_record[ethnic_category]", options_for_select(["Hispanic or Latino", "Not Hispanic or Latino", "Do Not Wish To Say"])  %>
+</p>
+
+<p>
+  Racial category:
+  <%= select_tag "vambler_demographics_record[racial_category]", options_for_select(["American Indian / Alaskan Native", "Asian", "Native Hawaiian / Other Pacific Islander", "Black / African American", "White", "More Than One Race", "Unknown / Do Not Wish To Say", "Other"])  %>
+
+<p>
+  Highest level of education completed:
+  <%= select_tag "vambler_demographics_record[education]", options_for_select(["High School", "College", "Master's", "Doctorate"])  %>
+</p>
+
+<p>
+  Which hand do you write with?:
+  <%= select_tag "vambler_demographics_record[handedness]", options_for_select(["Right", "Left", "Both"])  %>
+</p>
+
+<p>
+  What is the first language you learned? 
+  <%= f.text_field :first_language %>
+</p>
+
+<p>
+  Are you taking any prescription medications? If yes, please list and describe.<br/>
+  <%= f.text_area :prescription_meds %>
+</p>
+
+<p>
+  Have you ever sustained a head injury? If yes, please describe: Did you suffer from concussions?  When did it happen?<br/>
+  <%= f.text_area :head_injuries %>
+</p>
+
+<p align="center"><%= submit_tag 'I am Finished', :class => "button" %></p>
+
+<% end %>

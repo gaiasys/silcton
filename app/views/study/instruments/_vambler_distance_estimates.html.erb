@@ -1,0 +1,143 @@
+<script language="javascript">
+    $(function(){
+    
+        $('.page:first').show();
+        
+        $('.next_button').click(function(event){
+            $(event.target).closest('.page').hide();
+            $(event.target).closest('.page').next().show();
+        });
+    });
+</script>
+<style>
+  .container {
+    width: 1480px;
+  }
+  .left_facade_icon_area {
+    float: left;
+    width: 25%;
+    font-size: 20px;
+  }
+  .slider_area {
+    float: left;
+    width: 50%;
+  }
+  .slider_row {
+    padding-bottom: 30px;
+    font-size: 16pt;
+  }
+  .right_facade_icon_area {
+    float: right;
+    width: 25%;
+    font-size: 20px;
+    text-align: right;
+  }
+  .button_area {
+    clear: both;
+    padding-top: 50px;
+  }
+  .page {
+    width: 1480px;
+    height: 650px;
+  }
+</style>
+<div class="span-24 last">
+    <%= form_for @virtual_distance_test, :url => :study_instrument, :html => {:id => "virtual_distance_test_form", :name => "virtual_distance_test_form"} do |f| %>
+    <% distance_page_index = 0 %>
+    <% total_distance_estimate_index = 0 %>
+    <% for start_landmark in @virtual_environment.virtual_landmarks.sort_by {rand} %>
+    <% anchor_landmark = nil %> 
+    <div class="page" id="distance_page-<%= distance_page_index %>">
+      <p style="font-size: 12pt;">The top slider bar shows the true distance between the two buildings specified. Drag the remaining seven slider bars to indicate the distance between the other pairs. The longest distance in each set (page) will fill the entire slider.</p> 
+      
+      <div class="left_facade_icon_area">
+        <img class="facade_icon" src="/images/vambler/facades/<%= start_landmark.icon_image %>"/><br/>
+        <%= start_landmark.name %>
+      </div>
+      <div class="slider_area">
+        <% distance_estimate_index = 0 %>
+        <% for target_landmark in @virtual_environment.virtual_landmarks.sort_by {rand} %>
+          <% if target_landmark == start_landmark %>
+           <% next %>
+          <% elsif distance_estimate_index == 0 %>
+            <% anchor_landmark = target_landmark %>
+            <div class="slider_row">
+              <strong><%= start_landmark.name %></strong> to <strong><%= target_landmark.name %></strong>
+              <div class="anchor_slider {target_landmark_id: <%= target_landmark.id %>}" id="slider-<%= total_distance_estimate_index %>" style="width: <%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>;"></div>
+            </div>
+          <% else %>
+            <div class="slider_row">
+              <strong><%= start_landmark.name %></strong> to <strong><%= target_landmark.name %></strong>
+              <div class="slider {target_landmark_id: <%= target_landmark.id %>}" id="slider-<%= total_distance_estimate_index %>" style="width: <%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>;"></div></p>
+              <%= hidden_field_tag "virtual_distance_estimates[#{total_distance_estimate_index}][start_landmark_id]", start_landmark.id %>
+              <%= hidden_field_tag "virtual_distance_estimates[#{total_distance_estimate_index}][anchor_landmark_id]", anchor_landmark.id %>
+              <%= hidden_field_tag "virtual_distance_estimates[#{total_distance_estimate_index}][target_landmark_id]", target_landmark.id %>
+              <%= hidden_field_tag "virtual_distance_estimates[#{total_distance_estimate_index}][target_pixel_position]", 0 %>
+            </div>
+            <% total_distance_estimate_index +=1 %>
+          <% end %>
+          <% distance_estimate_index += 1 %>
+        <% end %>
+      </div>    
+      
+      <div class="right_facade_icon_area">
+      </div>
+      
+        <script language="javascript">
+          $(function(){
+              $("#distance_page-<%= distance_page_index %> .slider").slider({
+                  range: "min",
+                  min: 0,
+                  value: <%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") / 2 %>,
+                  max: <%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>,
+                  change: function(event, ui) {
+                    var distance_estimate_number = $(event.target).attr("id").split("-")[1];
+                    $("#virtual_distance_estimates_" + distance_estimate_number + "_target_pixel_position").val(ui.value);
+                  }
+              });
+              $("#distance_page-<%= distance_page_index %> .anchor_slider").slider({
+                  disabled: true,
+                  range: "min",
+                  min: 0,
+                  value: <%= start_landmark.distance_to(anchor_landmark, "front_door", "front_door") %>,
+                  max: <%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>
+              });
+              $("#distance_page-<%= distance_page_index %> .slider").width(<%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>);
+              $("#distance_page-<%= distance_page_index %> .anchor_slider").width(<%= start_landmark.distance_to(start_landmark.furthest_landmark, "front_door", "front_door") %>);
+              $("#distance_page-<%= distance_page_index %> .anchor_slider .ui-slider-range").css("background", '#cccccc');
+              
+              $("#distance_page-<%= distance_page_index %> .ui-slider").hover(
+                function(event) {
+                  var id = $(event.target).closest(".ui-slider").metadata().target_landmark_id;
+                  <% for landmark in @virtual_environment.virtual_landmarks %>
+                    if (id == <%= landmark.id %>) {
+                      building_name = "<%= landmark.name %>";
+                      icon_src = "/images/vambler/facades/<%= landmark.icon_image %>";
+                    }
+                  <% end %>
+                  
+                  $("#distance_page-<%= distance_page_index %> .right_facade_icon_area").html('<p><img src="' + icon_src + '"/><br/>' + building_name + '</p>');
+                }, 
+                function(event) {
+                  $("#distance_page-<%= distance_page_index %> .right_facade_icon_area").empty();
+                }
+              );
+          });
+        </script>
+        
+        <div class="button_area">
+          <% if distance_page_index == 7 %>
+            <p align="center"><%= submit_tag 'I am Finished', :class => "button" %></p>
+          <% else %>
+            <p align="center"><input type="button" class="button next_button" value="Next"/></p>
+          <% end %>
+        </div>
+      </div>
+    
+    
+    <% distance_page_index += 1 %>
+    <% end %>
+    
+    <%= hidden_field_tag "total_distance_estimates", total_distance_estimate_index - 1 %>
+    <% end %>
+</div>

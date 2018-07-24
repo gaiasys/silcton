@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Virtual SILCton
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  body
+    .container
+      .row
+        - if flash[:success]
+          .alert.alert-success.fade.in(data-alert="alert")
+            == flash[:success]
+        - if flash[:info]
+          .alert.alert-info.fade.in(data-alert="alert")
+            == flash[:info]
+        - if flash[:error]
+          .alert.alert-error.fade.in(data-alert="alert")
+            == flash[:error]
+        - if flash[:warning]
+          .alert.fade.in(data-alert="alert")
+            == flash[:warning]
+      .row.well align="center"
+        h1 = link_to 'Virtual SILCton', root_path
+        h2 
+          ' at
+          = link_to @lab.name, @lab.web_site
+      .row style="text-align: center;"
+        h4 Participants, please select the specific study you have been asked to be a part of:
+        - for study in @lab.studies.where(:active => true)
+          h3 = link_to study.name, study_start_path(study)
+
+      = render 'credits_footer'

@@ -1,0 +1,39 @@
+- content_for :body do
+  = simple_form_for([:experimenter, @experimenter], :html => { :class => 'form-horizontal' }) do |f|
+    h1 = @experimenter.full_name
+    ul.nav.nav-tabs
+      li
+        = link_to "View", experimenter_experimenter_path(@experimenter)
+      li.active
+        a Edit
+        
+    - if f.error_messages
+      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    - if current_experimenter.administrator
+      = f.association :lab, :as => :select, :include_blank => false
+    - elsif current_experimenter.lab_manager and current_experimenter.lab == @experimenter.lab
+      = f.association :lab, :as => :select, :include_blank => false, :collection => [@experimenter.lab]
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email
+    = f.input :lab_manager
+    - if current_experimenter.administrator
+      = f.input :administrator
+          
+    .form-actions
+      = f.submit "Save Changes", {:class => "btn btn-primary"}
+
+  h2 Change Password
+  = simple_form_for([:experimenter, @experimenter], :html => {:class => 'form-horizontal'}) do |f|
+    = f.input :password
+    = f.input :password_confirmation
+    .form-actions
+      = f.submit "Change Password", {:class => "btn btn-primary"}
+
+  h2 Delete Experimenter
+  p Deleting this user will permanently remove all associated records.
+  .form-horizontal
+    .form-actions
+      = button_to "Delete Experimenter", experimenter_experimenter_path(@experimenter), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete #{@experimenter.full_name}?"
+
+= render :template => '/experimenter/layout'

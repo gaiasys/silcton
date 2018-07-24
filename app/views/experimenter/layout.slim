@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title Virtual SILCton Experimenter Interface
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    == yield(:head)
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          h3
+            = link_to "Virtual SILCton Experimenter Interface", experimenter_root_path, :class => "brand"
+          ul.nav
+            - if current_experimenter.administrator
+              li class=('active' if current_page?(experimenter_labs_path))
+                = link_to "Labs", experimenter_labs_path
+            li class=("active" if current_page?(experimenter_studies_path))
+              = link_to "Studies", experimenter_studies_path
+            li class=("active" if current_page?(experimenter_experimenters_path))
+              = link_to "Experimenters", experimenter_experimenters_path
+            li class=("active" if current_page?(experimenter_shared_data_path))
+              = link_to "Shared Data", experimenter_shared_data_path
+          ul.nav.pull-right
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown"
+                == "<strong>#{current_experimenter.full_name}</strong>"
+                | <b class="caret"></b>
+              ul.dropdown-menu
+                li = link_to "Sign Out", destroy_experimenter_session_path, :method => :delete
+    .container style="padding-top: 60px;"
+      .section
+      - if flash[:success]
+        .alert.alert-success.fade.in(data-alert="alert")
+          == flash[:success]
+      - if flash[:info]
+        .alert.alert-info.fade.in(data-alert="alert")
+          == flash[:info]
+      - if flash[:error]
+        .alert.alert-error.fade.in(data-alert="alert")
+          == flash[:error]
+      - if flash[:warning]
+        .alert.fade.in(data-alert="alert")
+          == flash[:warning]
+      == yield(:body)
+    == yield(:after_container_body)

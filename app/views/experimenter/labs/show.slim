@@ -1,0 +1,15 @@
+- content_for :body do
+  h1 = @lab.name
+  ul.nav.nav-tabs
+    li.active 
+      a View
+    - if current_experimenter.administrator
+      li = link_to "Edit", edit_experimenter_lab_path(@lab)
+  p
+  	strong Web site:
+  	= link_to @lab.web_site, @lab.web_site
+  p
+    strong Country:
+    = @lab.country
+
+= render :template => '/experimenter/layout'

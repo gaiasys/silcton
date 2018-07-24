@@ -1,0 +1,68 @@
+<% 
+if cookies[:input] == "joystick" 
+  unity_file = "/unity/ambler_joystick.unity3d"
+else
+  unity_file = "/unity/ambler_mouse.unity3d"
+end
+%>
+
+<script src="/assets/UnityObject2.js"></script>
+
+<script type="text/javascript">
+    var u = new UnityObject2();
+    
+		function unityIsReady() {
+			u.getUnity().SendMessage('/Main Camera','ChangeLevel','pointing');
+		}
+    
+		var next_direction_estimate_index = 0;
+		
+    function recordPointingQuestion(pointingDiamondIndex, facingDiamondIndex, targetBuildingIndex, angle){
+			$("#virtual_direction_estimates_" + next_direction_estimate_index + "_start_landmark_id").val(landmark_index_to_id(pointingDiamondIndex));
+			$("#virtual_direction_estimates_" + next_direction_estimate_index + "_facing_landmark_id").val(landmark_index_to_id(facingDiamondIndex));
+			$("#virtual_direction_estimates_" + next_direction_estimate_index + "_target_landmark_id").val(landmark_index_to_id(targetBuildingIndex));
+			$("#virtual_direction_estimates_" + next_direction_estimate_index + "_bearing").val(angle);
+			++next_direction_estimate_index;
+    }
+		
+		function landmark_index_to_id (index) {
+			if (index == 0) return <%= VirtualLandmark.find_by_name("Batty House").id %>;
+			else if (index == 1) return <%= VirtualLandmark.find_by_name("Lynch Station").id %>;
+			else if (index == 2) return <%= VirtualLandmark.find_by_name("Harris Hall").id %>;
+			else if (index == 3) return <%= VirtualLandmark.find_by_name("Harvey House").id %>;
+			else if (index == 4) return <%= VirtualLandmark.find_by_name("Golledge Hall").id %>;
+			else if (index == 5) return <%= VirtualLandmark.find_by_name("Snow Church").id %>;
+			else if (index == 6) return <%= VirtualLandmark.find_by_name("Sauer Center").id %>;
+			else if (index == 7) return <%= VirtualLandmark.find_by_name("Tobler Museum").id %>;
+		}
+		
+		function doneWithPointing() {
+			document.virtual_direction_test_form.submit();
+		}
+
+    $(document).ready(function() {
+      u.initPlugin($("#unity-embed")[0], "<%= unity_file %>");
+    });
+</script>
+
+<%= form_for @virtual_direction_test, :url => :study_instrument, :html => {:id => "virtual_direction_test_form", :name => "virtual_direction_test_form"} do |f| %>
+  <% total_direction_estimates = 0 %>
+  <% for pointing_location in @virtual_environment.virtual_landmarks %>
+     <% for target in @virtual_environment.virtual_landmarks %>
+			 <% if target == pointing_location %>
+			   <% next %>
+			 <% else %>
+         <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][start_landmark_id]" %>
+         <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][facing_landmark_id]" %>
+         <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][target_landmark_id]"  %>
+         <%= hidden_field_tag "virtual_direction_estimates[#{total_direction_estimates}][bearing]" %>
+         <% total_direction_estimates = total_direction_estimates + 1 %>
+			 <% end %>
+     <% end %>
+  <% end %>
+  <%= hidden_field_tag "total_direction_estimates", total_direction_estimates - 1 %>
+<% end %>
+
+<p style="font-size: 12pt;">Using the mouse, aim the crosshairs to the target locations. Click the mouse to record your answer.</p>
+
+<div id="unity-embed" style="width: 1024px; height: 768px; border: 1px black solid"></div>
