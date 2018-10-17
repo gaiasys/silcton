@@ -55,7 +55,7 @@ $ ->
         newInstrument =
           instrument: 'Silcton Free Exploration'
 
-    console.log(newInstrument)
+
     newInstrument['order'] = $('body').find('#instruments-in-study-table tbody tr:visible').length + 1
 
     $('body').find('#instruments-in-study-table tbody').append(_.template('
@@ -85,7 +85,7 @@ $ ->
         </td>
       </tr>
     ')(newInstrument))
-
+    reorderInstruments()
   $(document).on 'click', '.remove-button', (event) ->
     $(event.currentTarget).siblings('input.destroy-field').val 'true'
     $(event.currentTarget).parents('tr').hide()
