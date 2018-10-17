@@ -26,15 +26,13 @@ class Experimenter::StudiesController < ApplicationController
       @table = 'spatial-ability-and-demographics'
     end
   end
-  
+
   def edit
     @study = Study.find(params[:id])
   end
-  
-  def create
-    puts params[:study]
-    @study = Study.new(study_params)
 
+  def create
+    @study = Study.new(study_params)
     respond_to do |format|
       if @study.save
         flash[:success] = "Study record created for <strong>#{@study.name}</strong>."
@@ -44,7 +42,7 @@ class Experimenter::StudiesController < ApplicationController
       end
     end
   end
-  
+
   def update
     @study = Study.find(params[:id])
 
@@ -57,7 +55,7 @@ class Experimenter::StudiesController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @study = Study.find(params[:id])
     @study.destroy

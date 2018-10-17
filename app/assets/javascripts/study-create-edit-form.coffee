@@ -54,9 +54,10 @@ $ ->
       when "Virtual SILCton Free Exploration"
         newInstrument =
           instrument: 'Silcton Free Exploration'
+
     console.log(newInstrument)
     newInstrument['order'] = $('body').find('#instruments-in-study-table tbody tr:visible').length + 1
-    console.log(newInstrument)
+
     $('body').find('#instruments-in-study-table tbody').append(_.template('
       <tr>
         <td>

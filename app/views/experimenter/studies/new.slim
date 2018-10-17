@@ -2,7 +2,7 @@
 - content_for :body do
   = simple_form_for([:experimenter, @study], :html => { :class => 'form-horizontal' }) do |f|
     h1 New Study
-        
+
     - if f.error_messages
       = f.error_messages :class => "alert alert-error", :header_tag => :strong
     = f.input :name
@@ -25,7 +25,6 @@
     p#add-another-instrument
       ' Add another instrument: 
       select#instrument-to-add-select
-        option Virtual SILCton Consent Form
         option Virtual SILCton Demographics Questionnaire
         option SBSOD (fixed order)
         option PSAS (short version, randomized)

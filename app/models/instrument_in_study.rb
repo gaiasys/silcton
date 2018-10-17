@@ -1,5 +1,5 @@
 class InstrumentInStudy < ApplicationRecord
-  belongs_to :study
+  belongs_to :study, optional: true
 
   def find_by_order(number)
     found_record = super(number)
