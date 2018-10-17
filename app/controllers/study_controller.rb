@@ -355,7 +355,7 @@ class StudyController < ApplicationController
 
   def next_instrument(study, instrument_order_id)
     next_order_id = instrument_order_id + 1
-    if next_study = @study.instrument_in_studies.find_by_order(next_order_id)
+    if next_study = @study.instrument_in_studies.order_greater_or_equal_to(next_order_id)
       flash[:message] = helpers.pluralize(@study.instrument_in_studies.length - next_order_id, "questionnaire") + " left to complete."
       redirect_to study_instrument_path(:study_id => study.id, :instrument_id => next_order_id)
     else
