@@ -22,7 +22,7 @@ class Experimenter::ExperimentersController < ApplicationController
   end
   
   def create
-    @experimenter = Experimenter.new(params[:experimenter])
+    @experimenter = Experimenter.new(experimenter_params)
 
     respond_to do |format|
       if @experimenter.save
@@ -38,7 +38,7 @@ class Experimenter::ExperimentersController < ApplicationController
     @experimenter = Experimenter.find(params[:id])
 
     respond_to do |format|
-      if @experimenter.update_attributes(params[:experimenter])
+      if @experimenter.update_attributes(experimenter_params)
         flash[:success] = "Experimenter record updated for <strong>#{@experimenter.full_name}</strong>."
         format.html { redirect_to(experimenter_experimenter_url(@experimenter)) }
       else
@@ -55,5 +55,10 @@ class Experimenter::ExperimentersController < ApplicationController
       flash[:success] = "Experimenter record deleted for <strong>#{@experimenter.full_name}</strong>."
       format.html { redirect_to(experimenter_experimenters_url) }
     end
+  end
+  private
+
+  def experimenter_params
+    params.require(:experimenter).permit(:id, :lab_id, :first_name, :last_name, :lab_manager, :administrator, :email, :password, :password_confirmation)
   end
 end

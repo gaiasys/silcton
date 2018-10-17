@@ -4,21 +4,21 @@ class Experimenter::LabsController < ApplicationController
   def index
     @labs = Lab.all
   end
-  
+
   def new
     @lab = Lab.new
   end
-  
+
   def show
     @lab = Lab.find(params[:id])
   end
-  
+
   def edit
     @lab = Lab.find(params[:id])
   end
-  
+
   def create
-    @lab = Lab.new(params[:lab])
+    @lab = Lab.new(lab_params)
 
     respond_to do |format|
       if @lab.save
@@ -29,12 +29,12 @@ class Experimenter::LabsController < ApplicationController
       end
     end
   end
-  
+
   def update
     @lab = Lab.find(params[:id])
 
     respond_to do |format|
-      if @lab.update_attributes(params[:lab])
+      if @lab.update_attributes(lab_params)
         flash[:success] = "Lab record updated for <strong>#{@lab.name}</strong>."
         format.html { redirect_to(experimenter_lab_url(@lab)) }
       else
@@ -42,7 +42,7 @@ class Experimenter::LabsController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @lab = Lab.find(params[:id])
     @lab.destroy
@@ -51,5 +51,8 @@ class Experimenter::LabsController < ApplicationController
       flash[:success] = "Lab record deleted for <strong>#{@lab.name}</strong>."
       format.html { redirect_to(experimenter_labs_url) }
     end
+  end
+  def lab_params
+    params.require(:lab).permit(:name, :web_site, :country, :id)
   end
 end

@@ -4,7 +4,7 @@ $ ->
       $('.order-field', element).val(index)
       $('.order', element).text(index + 1)
 
-  $('#add-button').click ->
+  $(document).on 'click', '#add-button', ->
     switch $('body').find('#instrument-to-add-select').val()
       when "Virtual SILCton Demographics Questionnaire"
         newInstrument =
@@ -85,12 +85,12 @@ $ ->
       </tr>
     ')(newInstrument))
 
-  $('body').on 'click', '.remove-button', (event) ->
+  $(document).on 'click', '.remove-button', (event) ->
     $(event.currentTarget).siblings('input.destroy-field').val 'true'
     $(event.currentTarget).parents('tr').hide()
     reorderInstruments()
 
-  $('body').on "click", '.remove-local-button', (event) ->
+  $(document).on "click", '.remove-local-button', (event) ->
     $(event.currentTarget).parents('tr').remove()
     reorderInstruments()
 
