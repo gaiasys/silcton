@@ -1,7 +1,7 @@
 <%= content_for :head  do %>
 
-<script src="/WebGL_Test3/TemplateData/UnityProgress.js"></script>  
-<script src="/WebGL_Test3/Build/UnityLoader.js"></script>
+<script src="/WebGL_Test4/TemplateData/UnityProgress.js"></script>  
+<script src="/WebGL_Test4/Build/UnityLoader.js"></script>
 <% end%>
 <% 
 if cookies[:input] == "joystick" 
@@ -14,7 +14,7 @@ end
 
   <script type="text/javascript">
 var gameInstance
-  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/WebGL_Test3/Build/WebGL_Test3.json", {onProgress: UnityProgress}); })
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/WebGL_Test4/Build/WebGL_Test4.json", {onProgress: UnityProgress}); })
   var route = "<%= @route %>";
 
 function unityIsReady() {
