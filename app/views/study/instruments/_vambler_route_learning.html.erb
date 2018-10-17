@@ -1,3 +1,8 @@
+<%= content_for :head  do %>
+
+<script src="/WebGL_Test3/TemplateData/UnityProgress.js"></script>  
+<script src="/WebGL_Test3/Build/UnityLoader.js"></script>
+<% end%>
 <% 
 if cookies[:input] == "joystick" 
   unity_file = "/unity/ambler_joystick.unity3d"
@@ -5,25 +10,25 @@ else
   unity_file = "/unity/ambler_mouse.unity3d"
 end
 %>
-<script src="/assets/UnityObject2.js"></script>
 
-<script type="text/javascript">
-  var u = new UnityObject2();
+
+  <script type="text/javascript">
+var gameInstance
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/WebGL_Test3/Build/WebGL_Test3.json", {onProgress: UnityProgress}); })
   var route = "<%= @route %>";
 
-  function unityIsReady() {
-    u.getUnity().SendMessage('/Main Camera','ChangeLevel', route);
+function unityIsReady() {
+
+    gameInstance.SendMessage('/Main Camera','ChangeLevel', route);
   }
 
-  function recordPositionLine(positionString) {
+function recordPositionLine(positionString) {
     $log = $("#virtual_navigation_log");
     var previousLog = $log.val();
     $log.val(previousLog + positionString);
   }
 
-  $(document).ready(function() {
-    u.initPlugin($("#unity-embed")[0], "<%= unity_file %>");
-  });
+
 </script>
 
 <% if (@route_order == "first") and (@route == "A" or @route == "B") %>
@@ -36,7 +41,14 @@ end
 <p style="font-size: 12pt;">Now you will learn a second route that also connects the two different parts of the virtual world that you explored previously. Please follow the arrows. Take as much time as you want.</p>
 <% end %>
 
-<div id="unity-embed" style="width: 1024px; height: 768px; border: 1px black solid"></div>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 1024px; height: 768px"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+        <div class="title">Vambler</div>
+      </div>
+    </div>
 
 <%= form_tag study_instrument_path(:study_id=>@study.id,:instrument_id=>@instrument.order) %>
 <input type="hidden" name="virtual_navigation_log[log]" id="virtual_navigation_log" />

@@ -177,7 +177,7 @@ class StudyController < ApplicationController
       if @instrument.version == "Main Routes"
         # if this is the first main route learning
         if @participant.vambler_main_routes_order.nil?
-          if @study.participants.count(:conditions => "vambler_main_routes_order = 'AB'") > @study.participants.count(:conditions => "vambler_main_routes_order = 'BA'")
+          if @study.participants.where(vambler_main_routes_order: 'AB').count > @study.participants.where(vambler_main_routes_order: 'BA').count
             @participant.vambler_main_routes_order = "BA"
             @participant.save()
             @route = "B"
@@ -199,7 +199,7 @@ class StudyController < ApplicationController
       elsif @instrument.version == "Connector Routes"
         # if this is the first connector route learning
         if @participant.vambler_connector_routes_order.nil?
-          if @study.participants.count(:conditions => "vambler_connector_routes_order = '12'") > @study.participants.count(:conditions => "vambler_connector_routes_order = '21'")
+          if @study.participants.where(vambler_connector_routes_order: '12').count > @study.participants.where(vambler_connector_routes_order: '21').count
             @participant.vambler_connector_routes_order = "21"
             @participant.save()
             @route = "C2"

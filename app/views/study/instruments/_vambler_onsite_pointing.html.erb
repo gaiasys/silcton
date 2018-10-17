@@ -1,3 +1,9 @@
+
+<%= content_for :head  do %>
+
+<script src="/WebGL_Test3/TemplateData/UnityProgress.js"></script>  
+<script src="/WebGL_Test3/Build/UnityLoader.js"></script>
+<% end%>
 <% 
 if cookies[:input] == "joystick" 
   unity_file = "/unity/ambler_joystick.unity3d"
@@ -6,13 +12,13 @@ else
 end
 %>
 
-<script src="/assets/UnityObject2.js"></script>
 
 <script type="text/javascript">
-    var u = new UnityObject2();
-    
+  var gameInstance
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/WebGL_Test3/Build/WebGL_Test3.json", {onProgress: UnityProgress}); })
+
 		function unityIsReady() {
-			u.getUnity().SendMessage('/Main Camera','ChangeLevel','pointing');
+			gameInstance.SendMessage('/Main Camera','ChangeLevel','pointing');
 		}
     
 		var next_direction_estimate_index = 0;
@@ -40,9 +46,7 @@ end
 			document.virtual_direction_test_form.submit();
 		}
 
-    $(document).ready(function() {
-      u.initPlugin($("#unity-embed")[0], "<%= unity_file %>");
-    });
+
 </script>
 
 <%= form_for @virtual_direction_test, :url => :study_instrument, :html => {:id => "virtual_direction_test_form", :name => "virtual_direction_test_form"} do |f| %>
@@ -65,4 +69,11 @@ end
 
 <p style="font-size: 12pt;">Using the mouse, aim the crosshairs to the target locations. Click the mouse to record your answer.</p>
 
-<div id="unity-embed" style="width: 1024px; height: 768px; border: 1px black solid"></div>
+<div class="webgl-content">
+  <div id="gameContainer" style="width: 1024px; height: 768px"></div>
+  <div class="footer">
+    <div class="webgl-logo"></div>
+    <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+    <div class="title">Vambler</div>
+  </div>
+</div>

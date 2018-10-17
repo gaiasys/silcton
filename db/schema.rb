@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180723184232) do
 
-  create_table "experimenters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "experimenters", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "web_site"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.index ["reset_password_token"], name: "index_experimenters_on_reset_password_token", unique: true
   end
 
-  create_table "instrument_in_studies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "instrument_in_studies", force: :cascade do |t|
     t.integer "study_id"
     t.integer "order"
     t.string "instrument"
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "labs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "labs", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.string "web_site"
@@ -56,7 +59,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "log_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "log_entries", force: :cascade do |t|
     t.string "type"
     t.integer "user_id"
     t.string "note"
@@ -64,7 +67,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "mrt_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "mrt_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "q1"
     t.string "q2"
@@ -91,7 +94,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "participant_personal_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "participant_personal_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "first_name"
     t.string "last_name"
@@ -100,7 +103,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "participants", force: :cascade do |t|
     t.boolean "share_data", default: false
     t.string "vambler_main_routes_order"
     t.string "vambler_connector_routes_order"
@@ -112,7 +115,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pf_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "pf_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "q1"
     t.string "q2"
@@ -139,7 +142,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "psas_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "psas_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "q1"
     t.string "q2"
@@ -170,7 +173,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.boolean "randomized"
   end
 
-  create_table "pvas_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "pvas_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "q1"
     t.string "q2"
@@ -185,7 +188,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.boolean "randomized"
   end
 
-  create_table "sbsod_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sbsod_records", force: :cascade do |t|
     t.integer "participant_id"
     t.integer "q1"
     t.integer "q2"
@@ -207,7 +210,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "studies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "studies", force: :cascade do |t|
     t.string "name"
     t.string "kind_of_start_buttons"
     t.string "when_to_share_data", default: "3years"
@@ -225,7 +228,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "vambler_demographics_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "vambler_demographics_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "gender"
     t.string "ethnic_category"
@@ -239,7 +242,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_direction_estimates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_direction_estimates", force: :cascade do |t|
     t.integer "virtual_direction_test_id"
     t.integer "start_landmark_id"
     t.integer "facing_landmark_id"
@@ -249,7 +252,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_direction_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_direction_tests", force: :cascade do |t|
     t.integer "participant_id"
     t.integer "virtual_environment_id"
     t.string "style"
@@ -258,7 +261,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_distance_estimates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_distance_estimates", force: :cascade do |t|
     t.integer "virtual_distance_test_id"
     t.integer "start_landmark_id"
     t.integer "target_landmark_id"
@@ -268,7 +271,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_distance_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_distance_tests", force: :cascade do |t|
     t.integer "participant_id"
     t.integer "virtual_environment_id"
     t.integer "seconds_taken"
@@ -276,7 +279,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_environments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_environments", force: :cascade do |t|
     t.string "name"
     t.integer "map_arrangement_pixel_width"
     t.integer "map_arrangement_pixel_height"
@@ -284,7 +287,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_landmarks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_landmarks", force: :cascade do |t|
     t.string "name"
     t.string "map_arrangement_piece_image"
     t.string "icon_image"
@@ -301,7 +304,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_map_arrangement_pieces", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_map_arrangement_pieces", force: :cascade do |t|
     t.integer "virtual_map_arrangement_id"
     t.integer "virtual_landmark_id"
     t.integer "upper_left_pixel_x"
@@ -311,7 +314,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_map_arrangements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_map_arrangements", force: :cascade do |t|
     t.integer "participant_id"
     t.integer "virtual_environment_id"
     t.integer "seconds_taken"
@@ -319,7 +322,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "virtual_navigation_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_navigation_logs", force: :cascade do |t|
     t.bigint "participant_id"
     t.bigint "virtual_environment_id"
     t.string "route"
@@ -330,13 +333,13 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.index ["virtual_environment_id"], name: "index_virtual_navigation_logs_on_virtual_environment_id"
   end
 
-  create_table "virtual_routes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "virtual_routes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "vv_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "vv_records", force: :cascade do |t|
     t.integer "participant_id"
     t.string "q1"
     t.string "q2"

@@ -69,6 +69,6 @@ class Experimenter::StudiesController < ApplicationController
   end
   private
   def study_params
-    params.require(:study).permit(:name, :lab_id, :experimenter_id, :active, :ask_participant_id, :when_to_share_data, :kind_of_start_buttons, :welcome_text, :completion_text, instrument_in_studies_attributes: [:order, :instrument, :version, :randomize, :force_wait])
+    params.require(:study).permit(:name, :lab_id, :experimenter_id, :active, :ask_participant_id, :when_to_share_data, :kind_of_start_buttons, :welcome_text, :completion_text, instrument_in_studies_attributes: [:order, :instrument, :version, :randomize, :force_wait, :id, :_destroy])
   end
 end
