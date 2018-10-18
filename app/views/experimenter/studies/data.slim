@@ -412,7 +412,7 @@
           th same or different route
       tbody
         - @study.participants.each do |p|
-          - p.virtual_direction_tests.find(:all, :conditions => "style = 'onsite'").each_with_index do |vdt, vdt_index|
+          - p.virtual_direction_tests.where(style: 'onsite').each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = p.identification
@@ -443,7 +443,7 @@
 
       tbody
         - @study.participants.each do |p|
-          - p.virtual_direction_tests.find(:all, :conditions => "style = 'offsite'").each_with_index do |vdt, vdt_index|
+          - p.virtual_direction_tests.where(style: 'offsite').each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = p.identification
