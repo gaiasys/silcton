@@ -406,7 +406,7 @@
           th same or different route
       tbody
         - @participants_with_currently_shared_data.each do |p|
-          - p.virtual_direction_tests.find(:all, :conditions => "style = 'onsite'").each_with_index do |vdt, vdt_index|
+          - p.virtual_direction_tests.where(style: 'onsite').each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
@@ -437,7 +437,7 @@
 
       tbody
         - @participants_with_currently_shared_data.each do |p|
-          - p.virtual_direction_tests.find(:all, :conditions => "style = 'offsite'").each_with_index do |vdt, vdt_index|
+          - p.virtual_direction_tests.where(style: 'offsite').each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
