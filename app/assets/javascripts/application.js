@@ -21,14 +21,16 @@
 //= require turbolinks
 
 
+//= require datatables
+
 //= require popper
-//= require ./jszip.min.js
+//= require jszip
 //= require jquery.svg.js
 
 
-//= require dataTables/jquery.dataTables
 
-//= require dataTables/extras/dataTables.tableTools
+
+
 
 
 //= require underscore

@@ -13,7 +13,7 @@ gem 'rails', '~> 5.1.6'
 #gem 'mysql2', '>= 0.3.18', '< 0.6.0'
 gem 'pg', '~> 0.18'
 
-
+gem "jszip-rails"
 
 gem 'jquery-ui-rails'
 gem 'jquery-svg-rails', github: 'ab320012/jquery-svg-rails'
@@ -43,7 +43,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'underscore-rails'
-gem 'jquery-datatables-rails', '~> 3.4.0'
+gem 'jquery-datatables'
 gem 'zeroclipboard-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

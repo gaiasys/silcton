@@ -2,7 +2,7 @@
   $(document).on('turbolinks:load', function() {
    $('.data-table').DataTable({
       "dom": "Bfrtip",
-//      "sPaginationType": "bootstrap",
+      "sPaginationType": "full_numbers",
       "oLanguage": {
         "sLengthMenu": "_MENU_ records per page"
       },
