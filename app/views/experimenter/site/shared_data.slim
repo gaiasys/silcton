@@ -328,6 +328,7 @@
           th date
           th route
           th # of log lines
+          th
       tbody
         - @participants_with_currently_shared_data.includes(:virtual_navigation_logs, :study).each do |p|
           - p.virtual_navigation_logs.each do |vnl|

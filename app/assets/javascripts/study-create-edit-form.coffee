@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   reorderInstruments = ->
     $('#instruments-in-study-table tbody tr:visible').each (index, element) ->
       $('.order-field', element).val(index)

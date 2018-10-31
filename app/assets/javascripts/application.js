@@ -15,16 +15,26 @@
 
 //= require jquery3
 //= require rails-ujs
+
+//= require jquery-ui
+
 //= require turbolinks
 
-//= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require dataTables/extras/dataTables.tableTools
-//= require popper
 
+//= require popper
+//= require ./jszip.min.js
 //= require jquery.svg.js
-//= require jquery-ui
+
+
+//= require dataTables/jquery.dataTables
+
+//= require dataTables/extras/dataTables.tableTools
+
+
 //= require underscore
 //= require zeroclipboard
 //= require bootstrap
+
+
+
 //= require_tree .
