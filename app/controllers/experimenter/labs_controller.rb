@@ -2,7 +2,7 @@ class Experimenter::LabsController < ApplicationController
   before_action :authenticate_experimenter!
 
   def index
-    @labs = Lab.all
+    @labs = Lab.all.includes(:experimenters, :studies)
   end
 
   def new

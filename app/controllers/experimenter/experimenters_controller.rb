@@ -3,10 +3,11 @@ class Experimenter::ExperimentersController < ApplicationController
   
   def index
     if current_experimenter.administrator
-      @experimenters = Experimenter.where('')
+      @experimenters = Experimenter.all
     else
       @experimenters = current_experimenter.lab.experimenters
     end
+      @experimenters = @experimenters.includes(:lab, :studies)
   end
   
   def new
