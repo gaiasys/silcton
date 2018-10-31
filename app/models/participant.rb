@@ -42,8 +42,8 @@ class Participant < ApplicationRecord
   }
 
   scope :with_currently_shared_data, -> {
-    who_elect_to_share_data
+    where(id: who_elect_to_share_data
       .joins(:study)
-      .where("studies.when_to_share_data = 'immediately' or (studies.when_to_share_data = '3years' and participants.created_at <= ? )", 3.years.ago)
+      .where("studies.when_to_share_data = 'immediately' or (studies.when_to_share_data = '3years' and participants.created_at <= ? )", 3.years.ago).pluck(:id))
   }
 end

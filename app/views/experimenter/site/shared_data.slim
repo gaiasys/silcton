@@ -88,7 +88,7 @@
           th prescription meds
           th head injuries
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :participant_personal_record,:sbsod_records, :psas_records, :mrt_records, :psas_records,:pvas_records,:vambler_demographics_records).each do |p|
           tr
             td = link_to p.study.name, experimenter_study_path(p.study)
             td = p.age
@@ -134,7 +134,7 @@
           th q14 (should be reverse coded)
           th q15
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :sbsod_records).each do |p|
           - p.sbsod_records.each do |sbsod|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
@@ -185,7 +185,7 @@
           th q19
           th q20
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :mrt_records).each do |p|
           - p.mrt_records.each do |mrt|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
@@ -233,7 +233,7 @@
           th q9
           th q10 (should be reverse coded)
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :pvas_records).each do |p|
           - p.pvas_records.each do |pvas|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
@@ -286,7 +286,7 @@
           th q24
           th q25 (should be reverse coded)
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :psas_records).each do |p|
           - p.psas_records.each do |psas|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
@@ -329,7 +329,7 @@
           th route
           th # of log lines
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:virtual_navigation_logs, :study).each do |p|
           - p.virtual_navigation_logs.each do |vnl|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
@@ -350,7 +350,7 @@
           th y
           th error
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :virtual_map_arrangements => {virtual_map_arrangement_pieces: :virtual_landmark }).each do |p|
           - p.virtual_map_arrangements.each_with_index do |ma, map_arrangement_index|
             - ma.virtual_map_arrangement_pieces.each do |map|
               tr
@@ -376,7 +376,7 @@
           th same or different route
           th spss level
       tbody
-        - @participants_with_currently_shared_data.each do |p|
+        - @participants_with_currently_shared_data.includes(:study, :virtual_distance_tests => {:virtual_distance_estimates => [:start_landmark => :virtual_route, :target_landmark => :virtual_route  ]}).each do |p|
           - p.virtual_distance_tests.each_with_index do |vdt, vdt_index|
             - vdt.virtual_distance_estimates.each do |vde|
               tr
@@ -405,8 +405,8 @@
           th abs error
           th same or different route
       tbody
-        - @participants_with_currently_shared_data.each do |p|
-          - p.virtual_direction_tests.where(style: 'onsite').each_with_index do |vdt, vdt_index|
+        - @participants_with_currently_shared_data.includes( :study, :virtual_direction_tests =>{ :virtual_direction_estimates => [:facing_landmark, target_landmark: :virtual_route, start_landmark: :virtual_route]}).each do |p|
+          - p.virtual_direction_tests.select{|t| t.style == 'onsite' }.each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
@@ -436,8 +436,8 @@
           th same or different route
 
       tbody
-        - @participants_with_currently_shared_data.each do |p|
-          - p.virtual_direction_tests.where(style: 'offsite').each_with_index do |vdt, vdt_index|
+        - @participants_with_currently_shared_data.includes(:study, virtual_direction_tests:{virtual_direction_estimates: [:facing_landmark, start_landmark: :virtual_route, target_landmark: :virtual_route]}).each do |p|
+          - p.virtual_direction_tests.select{|t| t.style == 'offsite'}.each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
