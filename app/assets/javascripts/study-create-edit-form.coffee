@@ -4,7 +4,8 @@ $(document).on 'turbolinks:load', ->
       $('.order-field', element).val(index)
       $('.order', element).text(index + 1)
 
-  $(document).on 'click', '#add-button', ->
+
+  addInstrument = ->
     switch $('body').find('#instrument-to-add-select').val()
       when "Virtual SILCton Demographics Questionnaire"
         newInstrument =
@@ -57,7 +58,7 @@ $(document).on 'turbolinks:load', ->
 
 
     newInstrument['order'] = $('body').find('#instruments-in-study-table tbody tr:visible').length + 1
-
+    console.log(newInstrument)
     $('body').find('#instruments-in-study-table tbody').append(_.template('
       <tr>
         <td>
@@ -85,12 +86,16 @@ $(document).on 'turbolinks:load', ->
         </td>
       </tr>
     ')(newInstrument))
+
+
     reorderInstruments()
   $(document).on 'click', '.remove-button', (event) ->
     $(event.currentTarget).siblings('input.destroy-field').val 'true'
     $(event.currentTarget).parents('tr').hide()
     reorderInstruments()
 
+  $(document).off 'click', '#add-button'
+  $(document).on 'click', '#add-button', addInstrument
   $(document).on "click", '.remove-local-button', (event) ->
     $(event.currentTarget).parents('tr').remove()
     reorderInstruments()

@@ -17,9 +17,6 @@
     h2 When to Share Data
     = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
 
-    h2 Start Button(s)
-    = f.input :kind_of_start_buttons, :as => :select, :collection => [['Standard', "standard"], ['Virtual SILCton ("Mouse" and "Joystick")', "vambler"]], :include_blank => false
-
     h2 Instruments
     p#add-another-instrument
       ' Add another instrument: 

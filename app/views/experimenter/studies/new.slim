@@ -13,13 +13,10 @@
       = f.association :lab, :as => :select, :include_blank => false, :collection => [current_experimenter.lab]
       = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => current_experimenter.lab.experimenters, :include_blank => false
     = f.input :active, :label => 'Active?'
-    = f.input :ask_participant_id, :label => "Ask for participant ID?"
+    = f.input :ask_participant_id, :label => "Ask for participant ID? NO NAMES/EMAIL MAY BE STORED ON THE WEBSITE"
 
     h2 When to Share Data
     = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
-
-    h2 Start Button(s)
-    = f.input :kind_of_start_buttons, :as => :select, :collection => [['Standard', "standard"], ['Virtual SILCton ("Mouse" and "Joystick")', "vambler"]], :default => "standard"
 
     h2 Instruments
     p#add-another-instrument

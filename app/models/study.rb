@@ -3,7 +3,7 @@ class Study < ApplicationRecord
   belongs_to :experimenter
   has_many :instrument_in_studies, -> { order(order: :asc) }, dependent: :destroy
   has_many :participants, -> { order(created_at: :desc) }, dependent: :destroy
-
+  before_save :set_buttons_to_vambler
   validates_presence_of :name, :lab, :experimenter
 
   accepts_nested_attributes_for :instrument_in_studies, :allow_destroy => true
@@ -19,6 +19,9 @@ class Study < ApplicationRecord
     else
       return nil
     end
+  end
+  def set_buttons_to_vambler
+    kind_of_start_buttons = 'vambler'
   end
 end
 
