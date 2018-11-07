@@ -7,7 +7,7 @@
       li = link_to "Edit", edit_experimenter_lab_path(@lab)
   p
   	strong Web site:
-  	= link_to @lab.web_site, @lab.web_site
+  	= link_to @lab.web_site, "http://#{@lab.web_site}"
   p
     strong Country:
     = @lab.country
