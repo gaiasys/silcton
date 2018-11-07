@@ -18,10 +18,11 @@
 
 //= require jquery-ui
 
+//= require datatables
 //= require turbolinks
 
 
-//= require datatables
+
 
 //= require popper
 //= require jszip

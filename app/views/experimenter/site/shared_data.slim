@@ -451,5 +451,26 @@
                 td = vde.true_direction
                 td = vde.abs_error
                 td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+javascript:
 
+  $(document).on('turbolinks:load', function() {
+
+  if (!$.fn.dataTable.isDataTable(".data-table")) {
+     $('.data-table').DataTable({
+        "dom": "Bfrtip",
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+          "sLengthMenu": "_MENU_ records per page"
+        },
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+          ]
+
+      });
+    }
+  })
 = render :template => '/experimenter/layout'
