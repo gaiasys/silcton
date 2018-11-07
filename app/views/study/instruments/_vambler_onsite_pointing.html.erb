@@ -1,8 +1,8 @@
 
 <%= content_for :head  do %>
 
-<script src="/WebGL_Test4/TemplateData/UnityProgress.js"></script>  
-<script src="/WebGL_Test4/Build/UnityLoader.js"></script>
+<script src="/main-routes/TemplateData/UnityProgress.js"></script>  
+<script src="/main-routes/Build/UnityLoader.js"></script>
 <% end%>
 <% 
 if cookies[:input] == "joystick" 
@@ -15,7 +15,7 @@ end
 
 <script type="text/javascript">
   var gameInstance
-  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/WebGL_Test4/Build/WebGL_Test4.json", {onProgress: UnityProgress}); })
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/main-routes/Build/Silcton_MainRoutes_Pointing_Website.json", {onProgress: UnityProgress}); })
 
 		function unityIsReady() {
 			gameInstance.SendMessage('/Main Camera','ChangeLevel','pointing');
@@ -74,6 +74,6 @@ end
   <div class="footer">
     <div class="webgl-logo"></div>
     <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-    <div class="title">Vambler</div>
+    <div class="title">Virtual Silcton</div>
   </div>
 </div>
