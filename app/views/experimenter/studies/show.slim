@@ -90,7 +90,7 @@
             - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
               th Actions
         tbody
-          - for p in @study.participants
+          - for p in @study.participants.includes(:participant_personal_record, :study)
             tr
               td = p.identification
               td = p.share_data ? 'yes' : 'no'

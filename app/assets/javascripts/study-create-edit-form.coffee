@@ -57,13 +57,15 @@ $(document).on 'turbolinks:load', ->
           instrument: 'Silcton Free Exploration'
 
 
-    newInstrument['order'] = $('body').find('#instruments-in-study-table tbody tr:visible').length + 1
+    newInstrument['order'] = $('body').find('#instruments-in-study-table tbody tr').length + 1
+    newInstrument['actualOrder'] = $('body').find('#instruments-in-study-table tbody tr:visible').length + 1
     console.log(newInstrument)
     $('body').find('#instruments-in-study-table tbody').append(_.template('
       <tr>
         <td>
           <span class="order"><%= order %></span>
-          <input type="hidden" class="order-field" name="study[instrument_in_studies_attributes][<%= order - 1 %>][order]" value= "<%= order - 1 %>">
+          <input type="hidden" class="order-field" name="study[instrument_in_studies_attributes][<%=
+          order - 1 %>][order]" value= "<%= actualOrder - 1 %>">
         </td>
         <td>
           <%= instrument %>
@@ -83,12 +85,16 @@ $(document).on 'turbolinks:load', ->
         </td>
         <td>
           <a class="btn btn-danger remove-local-button">Remove</a>
+          <input class="destroy-field" type="hidden" value="false"
+            name="study[instrument_in_studies_attributes][<%= order - 1 %>][_destroy]"
+            id="study_instrument_in_studies_attributes_<%= order - 1 %>__destroy">
         </td>
       </tr>
     ')(newInstrument))
 
 
     reorderInstruments()
+  $(document).off 'click', '.remove-button'
   $(document).on 'click', '.remove-button', (event) ->
     $(event.currentTarget).siblings('input.destroy-field').val 'true'
     $(event.currentTarget).parents('tr').hide()
@@ -96,6 +102,7 @@ $(document).on 'turbolinks:load', ->
 
   $(document).off 'click', '#add-button'
   $(document).on 'click', '#add-button', addInstrument
+  $(document).off "click", '.remove-local-button'
   $(document).on "click", '.remove-local-button', (event) ->
     $(event.currentTarget).parents('tr').remove()
     reorderInstruments()
