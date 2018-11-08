@@ -8,7 +8,7 @@
       <th>&#35; of studies</th>
     </tr>
   </thead>
-  <% for lab in @labs %>
+  <% for lab in @labs.includes(:experimenters, :studies) %>
   <tr>
     <td><strong><%= link_to lab.name, experimenter_lab_path(lab) %></strong></td>
     <td><%= pluralize(lab.experimenters.length, "study") %></td>

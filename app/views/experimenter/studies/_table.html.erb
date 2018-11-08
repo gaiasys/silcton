@@ -14,7 +14,7 @@
     <th>&#35; of participants currently shared</th>
     <th>Primary experimenter</th>
   </thead>
-  <% for study in @studies %>
+  <% for study in @studies.includes(:experimenter, :participants => :study) %>
   <tr>
     <td><strong><%= link_to study.name, experimenter_study_path(study) %></strong></td>
     <td><% if study.active %><img src="/images/icon-lightbulb.png" alt="Active"/><% end %></td>
@@ -25,11 +25,11 @@
         never
       <% end %>
     </td>
-    <td><%= pluralize(study.participants.count, "participant")%></td>
+    <td><%= pluralize(study.participants.length, "participant")%></td>
     <td><%= study.when_to_share_data %></td>
     <td>
-      <%- if study.participants.with_currently_shared_data.count > 0 %>
-        <%= pluralize(study.participants.with_currently_shared_data.count, "participant")%>
+      <%- if study.participants.select{|p| p.share_data == true && ( p.study.when_to_share_data == 'immediately' or (p.study.when_to_share_data == '3years' and p.created_at <= 3.years.ago))}.count > 0 %>
+        <%= pluralize(study.participants.select{|p| p.share_data == true && ( p.study.when_to_share_data == 'immediately' or (p.study.when_to_share_data == '3years' and p.created_at <= 3.years.ago   )  ) }.count, "participant")%>
       <%- end %>
     </td>
     <td><%= link_to study.experimenter.full_name, experimenter_experimenter_path(study.experimenter) %>

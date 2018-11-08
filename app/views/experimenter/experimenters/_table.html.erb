@@ -9,7 +9,7 @@
       <th>Last signed in</th>
     </tr>
   </thead>
-  <% for experimenter in @experimenters %>
+  <% for experimenter in @experimenters.includes(:lab, :studies) %>
   <tr>
     <td><strong><%= link_to experimenter.full_name, experimenter_experimenter_path(experimenter) %></strong></td>
     <td><%= experimenter.lab.name %>

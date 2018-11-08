@@ -93,7 +93,7 @@
           th prescription meds
           th head injuries
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:vambler_demographics_records, :participant_personal_record, :psas_records, :mrt_records, :sbsod_records).each do |p|
           tr
             td = p.identification
             td = p.share_data
@@ -140,7 +140,7 @@
           th q14 (should be reverse coded)
           th q15
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:sbsod_records).each do |p|
           - p.sbsod_records.each do |sbsod|
             tr
               td = p.identification
@@ -191,7 +191,7 @@
           th q19
           th q20
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:mrt_records).each do |p|
           - p.mrt_records.each do |mrt|
             tr
               td = p.identification
@@ -239,7 +239,7 @@
           th q9
           th q10 (should be reverse coded)
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:pvas_records).each do |p|
           - p.pvas_records.each do |pvas|
             tr
               td = p.identification
@@ -292,7 +292,7 @@
           th q24
           th q25 (should be reverse coded)
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:psas_records).each do |p|
           - p.psas_records.each do |psas|
             tr
               td = p.identification
@@ -335,7 +335,7 @@
           th route
           th # of log lines
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:virtual_navigation_logs).each do |p|
           - p.virtual_navigation_logs.each do |vnl|
             tr
               td = p.identification
@@ -356,7 +356,7 @@
           th y
           th error
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:virtual_map_arrangements => {virtual_map_arrangement_pieces: :virtual_landmark}).each do |p|
           - p.virtual_map_arrangements.each_with_index do |ma, map_arrangement_index|
             - ma.virtual_map_arrangement_pieces.each do |map|
               tr
@@ -382,7 +382,7 @@
           th same or different route
           th spss level
       tbody
-        - @study.participants.each do |p|
+        - @study.participants.includes(:virtual_distance_tests => {virtual_distance_estimates:[start_landmark: :virtual_route, target_landmark: :virtual_route]}).each do |p|
           - p.virtual_distance_tests.each_with_index do |vdt, vdt_index|
             - vdt.virtual_distance_estimates.each do |vde|
               tr
@@ -411,8 +411,8 @@
           th abs error
           th same or different route
       tbody
-        - @study.participants.each do |p|
-          - p.virtual_direction_tests.where(style: 'onsite').each_with_index do |vdt, vdt_index|
+        - @study.participants.includes(virtual_direction_tests: {virtual_direction_estimates: [ :facing_landmark, start_landmark: :virtual_route, target_landmark: :virtual_route  ]}).each do |p|
+          - p.virtual_direction_tests.select{|t| t.style == 'onsite' }.each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = p.identification
@@ -442,8 +442,8 @@
           th same or different route
 
       tbody
-        - @study.participants.each do |p|
-          - p.virtual_direction_tests.where(style: 'offsite').each_with_index do |vdt, vdt_index|
+        - @study.participants.includes(virtual_direction_tests: {virtual_direction_estimates: [ :facing_landmark, start_landmark: :virtual_route, target_landmark: :virtual_route  ]}).each do |p|
+          - p.virtual_direction_tests.select{|t| t.style == 'offsite' }.each_with_index do |vdt, vdt_index|
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = p.identification
@@ -457,4 +457,26 @@
                 td = vde.abs_error
                 td = vde.start_landmark.same_or_different_route(vde.target_landmark)
 
+javascript:
+
+  $(document).on('turbolinks:load', function() {
+
+  if (!$.fn.dataTable.isDataTable(".data-table")) {
+     $('.data-table').DataTable({
+        "dom": "Bfrtip",
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+          "sLengthMenu": "_MENU_ records per page"
+        },
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        buttons: [
+              'copyHtml5',
+              'excelHtml5',
+              'csvHtml5',
+              'pdfHtml5'
+          ]
+
+      });
+    }
+  })
 = render :template => '/experimenter/layout'
