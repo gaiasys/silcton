@@ -28,7 +28,7 @@
         strong Participant identification:
         ul
           - if @study.ask_participant_id
-            li Ask for ID (can be any number or characters)
+            li Ask for ID (can be any number or characters) NO NAMES/EMAILS MAY BE STORED ON THE WEBSITE
           - if @study.ask_name
             li Ask for name (first and last)
           - if @study.ask_email
@@ -42,12 +42,7 @@
         strong When to share data: 
         = @study.when_to_share_data
 
-      p
-        strong Start button(s):
-        - if @study.kind_of_start_buttons == 'vambler'
-          | Virtual SILCton ("Mouse" and "Joystick")
-        - else
-          | Standard
+
 
       h2 Instruments
       table.table.table-striped
