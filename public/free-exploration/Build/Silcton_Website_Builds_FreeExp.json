@@ -1,0 +1,13 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Silcton Version 5 For Website",
+"dataUrl": "Silcton_Website_Builds_FreeExp.data.unityweb",
+"wasmCodeUrl": "Silcton_Website_Builds_FreeExp.wasm.code.unityweb",
+"wasmFrameworkUrl": "Silcton_Website_Builds_FreeExp.wasm.framework.unityweb",
+"TOTAL_MEMORY": 1073741824,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"}
+}
