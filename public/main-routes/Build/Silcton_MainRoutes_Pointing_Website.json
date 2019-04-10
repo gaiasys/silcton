@@ -1,9 +1,9 @@
 {
 "companyName": "DefaultCompany",
 "productName": "Silcton Version 5 For Website",
-"dataUrl": "/main-routes/Silcton_MainRoutes_Pointing_Website.data.unityweb",
-"wasmCodeUrl": "/main-routes/Silcton_MainRoutes_Pointing_Website.wasm.code.unityweb",
-"wasmFrameworkUrl": "/main-routes/Silcton_MainRoutes_Pointing_Website.wasm.framework.unityweb",
+"dataUrl": "Silcton_MainRoutes_Pointing_Website.data.unityweb",
+"wasmCodeUrl": "Silcton_MainRoutes_Pointing_Website.wasm.code.unityweb",
+"wasmFrameworkUrl": "Silcton_MainRoutes_Pointing_Website.wasm.framework.unityweb",
 "TOTAL_MEMORY": 1073741824,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
