@@ -15,7 +15,7 @@ end
 
 <script type="text/javascript">
   var gameInstance
-  $( document ).on('ready',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/main-routes/Build/Silcton_MainRoutes_Pointing_Website.json", {onProgress: UnityProgress}); })
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/main-routes/Build/Silcton_MainRoutes_Pointing_Website.json", {onProgress: UnityProgress}); })
 
 		function unityIsReady() {
 			gameInstance.SendMessage('/Main Camera','ChangeLevel','pointing');
