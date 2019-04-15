@@ -53,5 +53,5 @@ function recordPositionLine(positionString) {
 <%= form_tag study_instrument_path(:study_id=>@study.id,:instrument_id=>@instrument.order) do %>
 <input type="hidden" name="virtual_navigation_log[log]" id="virtual_navigation_log" />
 <input type="hidden" name="virtual_navigation_log[route]" value="<%= "#{@route} #{@route_order}" %>" />
-<%= submit_tag 'I am Finished', :class => "button" %>
+<%= submit_tag 'I am Finished', :class => "button", style: 'position:absolute;left:15%;bottom:0;'%>
 <% end %>
