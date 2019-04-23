@@ -1,6 +1,6 @@
 <%= content_for :head  do %>
 
-<script src="/free-exploration/TemplateData/UnityProgress.js"></script>  
+<script src="/free-exploration/TemplateData/UnityProgress.js"></script>
 <script src="/free-exploration/Build/UnityLoader.js"></script>
 <% end%>
 
@@ -14,7 +14,12 @@
     var previousLog = $log.val();
     $log.val(previousLog + "\n" + positionString)
   }
+
+  function unityIsReady() {
+  }
+
 </script>
+
 
     <div class="webgl-content">
       <div id="gameContainer" style="width: 1024px; height: 768px"></div>
