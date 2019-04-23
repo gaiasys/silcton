@@ -1,10 +1,10 @@
 <%= content_for :head  do %>
 
-<script src="/main-routes/TemplateData/UnityProgress.js"></script>  
+<script src="/main-routes/TemplateData/UnityProgress.js"></script>
 <script src="/main-routes/Build/UnityLoader.js"></script>
 <% end%>
-<% 
-if cookies[:input] == "joystick" 
+<%
+if cookies[:input] == "joystick"
   unity_file = "/unity/ambler_joystick.unity3d"
 else
   unity_file = "/unity/ambler_mouse.unity3d"
@@ -31,15 +31,6 @@ function recordPositionLine(positionString) {
 
 </script>
 
-<% if (@route_order == "first") and (@route == "A" or @route == "B") %>
-<p style="font-size: 12pt;">Your task is to follow the route marked by the arrows and to learn the name and location of four buildings. The buildings are indicated by diamonds along the path and labeled by signs. Take as much time as you want.</p>
-<% elsif (@route_order == "second") and (@route == "A" or @route == "B") %>
-<p style="font-size: 12pt;">Now you will learn a second route through a different part of the same world. Remember the name and location of the four buildings indicated by diamonds and labeled by signs. Take as much time as you want.</p>
-<% elsif (@route_order == "first") and (@route == "C1" or @route == "C2") %>
-<p style="font-size: 12pt;">Now you will learn a route that connects the two different parts of the virtual world that you explored previously. Please follow the arrows. Take as much time as you want.</p>
-<% elsif (@route_order == "second") and (@route == "C1" or @route == "C2") %>
-<p style="font-size: 12pt;">Now you will learn a second route that also connects the two different parts of the virtual world that you explored previously. Please follow the arrows. Take as much time as you want.</p>
-<% end %>
 
     <div class="webgl-content">
       <div id="gameContainer" style="width: 1024px; height: 768px"></div>
