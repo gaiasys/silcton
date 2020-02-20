@@ -1,0 +1,13 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Silcton Version 5 For Website",
+"dataUrl": "https://virtual-silcton.s3.amazonaws.com/Silcton_FreeExploration_Website.data.unityweb",
+"asmCodeUrl": "https://virtual-silcton.s3.amazonaws.com/Silcton_FreeExploration_Website.asm.code.unityweb",
+"asmMemoryUrl": "https://virtual-silcton.s3.amazonaws.com/Silcton_FreeExploration_Website.asm.memory.unityweb",
+"asmFrameworkUrl": "https://virtual-silcton.s3.amazonaws.com/Silcton_FreeExploration_Website.asm.framework.unityweb",
+"TOTAL_MEMORY": 1073741824,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}
