@@ -1,7 +1,7 @@
 <%= content_for :head  do %>
 
 <script src="/main-routes/TemplateData/UnityProgress.js"></script>
-<script src="/main-routes/Build/UnityLoader.js"></script>
+<script src="https://virtual-silcton.s3.amazonaws.com/main-routes/UnityLoader.js"></script>
 <% end%>
 <%
 if cookies[:input] == "joystick"
@@ -14,7 +14,7 @@ end
 
   <script type="text/javascript">
 var gameInstance
-  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/main-routes/Build/Silcton_MainRoutes_Pointing_Website.json", {onProgress: UnityProgress}); })
+  $( document ).on('turbolinks:load',function(){ gameInstance = UnityLoader.instantiate("gameContainer", "/main-routes/Silcton_MainRoutes_Pointing_Website.json", {onProgress: UnityProgress}); })
   var route = "<%= @route %>";
 
 function unityIsReady() {
@@ -37,7 +37,7 @@ function recordPositionLine(positionString) {
       <div class="footer">
         <div class="webgl-logo"></div>
         <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">Virtual Silcton</div>
+        <div class="title">Virtual Silctons</div>
       </div>
     </div>
 
