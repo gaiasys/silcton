@@ -1,14 +1,16 @@
 {
 "companyName": "DefaultCompany",
-"productName": "Silcton Version 5 For Website",
-"dataUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_MainRoutes_Pointing_Website.data.unityweb",
-"asmCodeUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_MainRoutes_Pointing_Website.asm.code.unityweb",
-"asmMemoryUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_MainRoutes_Pointing_Website.asm.memory.unityweb",
-"asmFrameworkUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_MainRoutes_Pointing_Website.asm.framework.unityweb",
-"TOTAL_MEMORY": 1073741824,
-"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"productName": "Ambler",
+"productVersion": "1.0",
+"dataUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_Website_Builds_MainScenes_and_Pointing.data.unityweb",
+"wasmCodeUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_Website_Builds_MainScenes_and_Pointing.wasm.code.unityweb",
+"wasmFrameworkUrl": "https://virtual-silcton.s3.amazonaws.com/main-routes_fixed/Build/Silcton_Website_Builds_MainScenes_and_Pointing.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Dark",
 "backgroundColor": "#231F20",
-"cacheControl": {"default": "must-revalidate"}
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.2.13f1"
 }
