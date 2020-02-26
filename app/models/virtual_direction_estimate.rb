@@ -22,7 +22,7 @@ class VirtualDirectionEstimate < ApplicationRecord
     vector1 = facing-point_from # center the facing and target points
     vector2 = target-point_from
     # Now calculate the signed angle between them as the difference between arctans (y,x)
-    angle = Math.arctan2(vector1[1],vector1[0]) - np.arctan2(vector2[1],vector2[0])
+    angle = Math.arctan2(vector1[0,1],vector1[0,0]) - np.arctan2(vector2[0,1],vector2[0,0])
     return rad2deg(angle)
 
   end
