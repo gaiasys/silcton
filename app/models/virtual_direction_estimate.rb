@@ -32,7 +32,7 @@ class VirtualDirectionEstimate < ApplicationRecord
           correctedAngle = angle
       end
 
-      return angle
+      return -angle
   end
 
     def abs_error
