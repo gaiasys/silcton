@@ -25,15 +25,15 @@ class VirtualDirectionEstimate < ApplicationRecord
       angle = Math.atan2(vector1[1],vector1[0])-Math.atan2(vector2[1],vector2[0])
       angle = angle * 180 / Math::PI
       if angle > 180
-            correctedAngle = angle - 360
-        elsif angle < -180
-            correctedAngle = 360 + angle
-        else
-            correctedAngle = angle
+          correctedAngle = angle - 360
+      elsif angle < -180
+          correctedAngle = 360 + angle
+      else
+          correctedAngle = angle
+      end
 
       return angle
-
-    end
+  end
 
     def abs_error
       abs_error = (bearing - true_direction).modulo(360)
@@ -43,7 +43,6 @@ class VirtualDirectionEstimate < ApplicationRecord
         abs_error
       end
     end
-  end
 
 
 end
