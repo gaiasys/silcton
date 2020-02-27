@@ -16,7 +16,7 @@ class VirtualDirectionEstimate < ApplicationRecord
 
       facing = [facing_landmark.pointing_location_pixel_x,facing_landmark.pointing_location_pixel_y]
       point_from = [start_landmark.pointing_location_pixel_x,start_landmark.pointing_location_pixel_y]
-      target = [start_landmark.front_door_pixel_x,start_landmark.front_door_pixel_y]
+      target = [target_landmark.front_door_pixel_x,target_landmark.front_door_pixel_y]
       #vector subtraction logic from here:
       #https://stackoverflow.com/questions/21483999/using-atan2-to-find-angle-between-two-vectors
       vector1 = point_from.zip(facing).map { |x, y| y - x } # center the facing and target points
