@@ -24,6 +24,7 @@ class VirtualDirectionEstimate < ApplicationRecord
       # Now calculate the signed angle between them as the difference between arctans (y,x)
       angle = Math.atan2(vector1[1],vector1[0])-Math.atan2(vector2[1],vector2[0])
       angle = angle * 180 / Math::PI
+      angle = -angle
       if angle > 180
           correctedAngle = angle - 360
       elsif angle < -180
@@ -32,7 +33,7 @@ class VirtualDirectionEstimate < ApplicationRecord
           correctedAngle = angle
       end
 
-      return -angle
+      return angle
   end
 
     def abs_error
