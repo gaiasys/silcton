@@ -410,6 +410,7 @@
           th actual direction
           th abs error
           th same or different route
+          th error in pointing task
       tbody
         - @study.participants.includes(virtual_direction_tests: {virtual_direction_estimates: [ :facing_landmark, start_landmark: :virtual_route, target_landmark: :virtual_route  ]}).each do |p|
           - p.virtual_direction_tests.select{|t| t.style == 'onsite' }.each_with_index do |vdt, vdt_index|
@@ -425,6 +426,7 @@
                 td = vde.true_direction
                 td = vde.abs_error
                 td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+                td = vde.error
 
   - elsif @table == 'offsite-pointing'
     table.table.table-bordered.table-striped.data-table
@@ -440,6 +442,7 @@
           th actual direction
           th abs error
           th same or different route
+          th error in pointing task
 
       tbody
         - @study.participants.includes(virtual_direction_tests: {virtual_direction_estimates: [ :facing_landmark, start_landmark: :virtual_route, target_landmark: :virtual_route  ]}).each do |p|
@@ -456,6 +459,7 @@
                 td = vde.true_direction
                 td = vde.abs_error
                 td = vde.start_landmark.same_or_different_route(vde.target_landmark)
+                td = vde.error
 
 javascript:
 
