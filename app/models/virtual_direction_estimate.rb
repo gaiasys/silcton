@@ -13,6 +13,7 @@ class VirtualDirectionEstimate < ApplicationRecord
         b = start_landmark.distance_to(target_landmark, "pointing_location", "front_door") #CB
         c = target_landmark.distance_to(facing_landmark, "front_door", "pointing_location") #BA
         angle = Math.acos((a**2 + b**2 - c**2) / (2 * a * b))
+        angle = angle * 180 / Math::PI
       else
         facing = [facing_landmark.pointing_location_pixel_x,facing_landmark.pointing_location_pixel_y]
         point_from = [start_landmark.pointing_location_pixel_x,start_landmark.pointing_location_pixel_y]
