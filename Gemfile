@@ -24,7 +24,7 @@ gem 'slim'
 gem 'simple_form'
 gem 'dynamic_form'
 gem 'country_select'
-gem 'bootstrap', '~> 4.1.2'
+gem 'bootstrap', '~> 4.3.1'
 # Use Puma as the app server
 
 gem 'puma', '~> 3.7'
