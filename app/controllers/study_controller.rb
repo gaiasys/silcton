@@ -4,11 +4,7 @@ class StudyController < ApplicationController
     if request.post?
       @participant = Participant.new(participant_params)
       @participant.study = @study
-      if @study.ask_name or @study.ask_email
-        ppr = ParticipantPersonalRecord.new(params[:participant_personal_record])
-        ppr.save()
-        @participant.participant_personal_record = ppr
-      end
+
       # only for Virtual Ambler
       if params[:commit] == "Take Study with Mouse"
         cookies[:input] = "mouse"

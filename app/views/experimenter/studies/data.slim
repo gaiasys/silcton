@@ -76,9 +76,6 @@
           th elected to share data?
           th age
           th sex
-          th first name
-          th last name
-          th e-mail
           th date
           th MRT SDT-style
           th PSAS average
@@ -93,15 +90,12 @@
           th prescription meds
           th head injuries
       tbody
-        - @study.participants.includes(:vambler_demographics_records, :participant_personal_record, :psas_records, :mrt_records, :sbsod_records).each do |p|
+        - @study.participants.includes(:vambler_demographics_records, :psas_records, :mrt_records, :sbsod_records).each do |p|
           tr
             td = p.identification
             td = p.share_data
             td = p.age
             td = p.sex
-            td = p.participant_personal_record.first_name if p.participant_personal_record
-            td = p.participant_personal_record.last_name if p.participant_personal_record
-            td = p.participant_personal_record.email if p.participant_personal_record
             td = p.created_at
             td = p.mrt_records.first.sdt_score unless !p.mrt_records.first
             td = p.psas_records.first.average_score unless !p.psas_records.first

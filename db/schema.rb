@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180723184232) do
+ActiveRecord::Schema.define(version: 20200427123809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,15 +90,6 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.string "q19"
     t.string "q20"
     t.boolean "force_wait"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "participant_personal_records", force: :cascade do |t|
-    t.integer "participant_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -250,6 +241,7 @@ ActiveRecord::Schema.define(version: 20180723184232) do
     t.integer "bearing"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "error", default: false
   end
 
   create_table "virtual_direction_tests", force: :cascade do |t|
