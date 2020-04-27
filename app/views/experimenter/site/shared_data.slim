@@ -71,9 +71,6 @@
           th study
           th age
           th sex
-          th first name
-          th last name
-          th e-mail
           th date
           th MRT SDT-style
           th PSAS average
@@ -88,14 +85,11 @@
           th prescription meds
           th head injuries
       tbody
-        - @participants_with_currently_shared_data.includes(:study, :participant_personal_record,:sbsod_records, :psas_records, :mrt_records, :psas_records,:pvas_records,:vambler_demographics_records).each do |p|
+        - @participants_with_currently_shared_data.includes(:study,:sbsod_records, :psas_records, :mrt_records, :psas_records,:pvas_records,:vambler_demographics_records).each do |p|
           tr
             td = link_to p.study.name, experimenter_study_path(p.study)
             td = p.age
             td = p.sex
-            td = p.participant_personal_record.first_name if p.participant_personal_record
-            td = p.participant_personal_record.last_name if p.participant_personal_record
-            td = p.participant_personal_record.email if p.participant_personal_record
             td = p.created_at
             td = p.mrt_records.first.sdt_score unless !p.mrt_records.first
             td = p.psas_records.first.average_score unless !p.psas_records.first

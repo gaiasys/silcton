@@ -18,14 +18,6 @@
           <%= f.text_field :identification  %>
         </p>
       <% end %>
-      <% if @study.ask_name %>
-        <p>
-          <%= label_tag "participant_personal_record[first_name]", "First name" %>
-          <%= text_field_tag "participant_personal_record[first_name]" %>
-          <%= label_tag "participant_personal_record[last_name]", "Last name" %>
-          <%= text_field_tag "participant_personal_record[last_name]" %>
-        </p>
-      <% end %>
       <% if @study.ask_age %>
         <p>
           <%= f.label :age, "Age" %>
@@ -36,12 +28,6 @@
         <p>
           <%= f.label :sex, "Sex" %>
           <%= select_tag "participant[sex]", options_for_select(["female", "male"]) %>
-        </p>
-      <% end %>
-      <% if @study.ask_email %>
-        <p>
-          <%= label_tag "participant_personal_record[email]", "E-mail Address" %>
-          <%= text_field_tag "participant_personal_record[email]" %>
         </p>
       <% end %>
     </fieldset>
