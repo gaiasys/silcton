@@ -375,7 +375,7 @@ class StudyController < ApplicationController
   end
   private
   def participant_params
-    params.require(:participant).permit(:identification, :share_data)
+    params.require(:participant).merge(identification: SecureRandom.uuid).permit(:identification, :share_data)
   end
   def sbsod_params
     params.require(:sbsod).permit(*SbsodRecord.column_names.map(&:to_sym))
