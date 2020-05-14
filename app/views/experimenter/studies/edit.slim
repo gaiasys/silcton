@@ -12,7 +12,6 @@
     = f.input :name
     = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => @study.lab.experimenters, :include_blank => false
     = f.input :active
-    = f.input :ask_participant_id, :label => 'Ask for participant ID? NO NAMES/EMAIL MAY BE STORED ON THE WEBSITE'
 
     h2 When to Share Data
     = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
