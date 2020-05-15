@@ -18,7 +18,7 @@ class StudyController < ApplicationController
         flash[:error] = "Error starting the study. Did you complete all of the identification questions?"
       end
     else
-      @participant = Participant.new(identification: SecureRandom.uuid)
+      @participant = Participant.new(identification: "%04d" % (@study.participants.count + 1))
     end
   end
   
@@ -361,7 +361,11 @@ class StudyController < ApplicationController
   end
 
   def finish
+    if not cookies[:participant_id]
+      return redirect_to study_start_path(params[:study_id])
+    end
     @study = Study.find(params[:study_id])
+    @participant = Participant.find(cookies[:participant_id])
   end
   
   # to let us use pluralize here in the controller
