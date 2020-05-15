@@ -3,6 +3,7 @@
 
 <%= content_for :content do %> 
 <p><%== @study.completion_text %></p>
+<p> This participant's study-specific ID number is: #[<%=@participant.identification%>].</p>
 <% end -%>
 
 <%= render :partial => 'base' %>

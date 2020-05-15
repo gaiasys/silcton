@@ -10,28 +10,23 @@
     <%== @study.welcome_text %>
   </fieldset>
   <%= form_for @participant, :url => study_start_path do |f| %>
-    <fieldset>
-      <legend>Identification</legend>
-      <% if @study.ask_participant_id %>
-        <p>
-          <%= f.label :identification, "Participant ID" %>
-          <%= f.hidden_field(:identification)%>
-          <%= @participant.identification %>
-        </p>
-      <% end %>
-      <% if @study.ask_age %>
-        <p>
-          <%= f.label :age, "Age" %>
-          <%= f.text_field :age  %>
-        </p>
-      <% end %>
-      <% if @study.ask_sex %>
-        <p>
-          <%= f.label :sex, "Sex" %>
-          <%= select_tag "participant[sex]", options_for_select(["female", "male"]) %>
-        </p>
-      <% end %>
-    </fieldset>
+    <% if @study.ask_age || @study.ask_sex %>
+      <fieldset>
+        <legend>Identification</legend>
+        <% if @study.ask_age %>
+          <p>
+            <%= f.label :age, "Age" %>
+            <%= f.text_field :age  %>
+          </p>
+        <% end %>
+        <% if @study.ask_sex %>
+          <p>
+            <%= f.label :sex, "Sex" %>
+            <%= select_tag "participant[sex]", options_for_select(["female", "male"]) %>
+          </p>
+        <% end %>
+      </fieldset>
+    <% end %>
     <fieldset>
       <legend>Informed Consent</legend>
       <img id="consent-form-image" src="/images/temple-informed-consent-form-2014on.png" width="612" height="444" />
