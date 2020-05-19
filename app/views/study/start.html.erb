@@ -10,9 +10,15 @@
     <%== @study.welcome_text %>
   </fieldset>
   <%= form_for @participant, :url => study_start_path do |f| %>
-    <% if @study.ask_age || @study.ask_sex %>
-      <fieldset>
+     <fieldset>
         <legend>Identification</legend>
+        <% if @study.ask_participant_id %>
+          <p>
+            <%= f.label :uuid, "Participant UUID" %>
+            <%= f.hidden_field(:uuid)%>
+            <%= @participant.uuid %>
+          </p>
+        <% end %>
         <% if @study.ask_age %>
           <p>
             <%= f.label :age, "Age" %>
@@ -26,8 +32,7 @@
           </p>
         <% end %>
       </fieldset>
-    <% end %>
-    <fieldset>
+     <fieldset>
       <legend>Informed Consent</legend>
       <img id="consent-form-image" src="/images/temple-informed-consent-form-2014on.png" width="612" height="444" />
     </fieldset>
