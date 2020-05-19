@@ -18,7 +18,7 @@ class StudyController < ApplicationController
         flash[:error] = "Error starting the study. Did you complete all of the identification questions?"
       end
     else
-      @participant = Participant.new
+      @participant = Participant.new(uuid: SecureRandom.uuid)
     end
   end
   
@@ -381,7 +381,7 @@ class StudyController < ApplicationController
   def participant_params
     params.require(:participant)
           .merge(identification: "%04d" % (@study.participants.count + 1))
-          .permit(:identification, :share_data)
+          .permit(:identification, :share_data, :uuid)
   end
   def sbsod_params
     params.require(:sbsod).permit(*SbsodRecord.column_names.map(&:to_sym))
