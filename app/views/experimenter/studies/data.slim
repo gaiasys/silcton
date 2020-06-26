@@ -73,6 +73,7 @@
       thead
         tr
           th participant
+          th Participant UUID
           th elected to share data?
           th age
           th sex
@@ -91,6 +92,7 @@
         - @study.participants.includes(:vambler_demographics_records, :psas_records, :mrt_records, :sbsod_records).each do |p|
           tr
             td = p.identification
+            td = p.uuid
             td = p.share_data
             td = p.age
             td = p.sex
