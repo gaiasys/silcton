@@ -75,6 +75,7 @@
         thead
           tr
             th Participant Identification
+            th Participant UUID
             th Elected to share data?
             th Age
             th Sex
@@ -85,6 +86,7 @@
           - for p in @study.participants.includes(:study)
             tr
               td = p.identification
+              td = p.uuid
               td = p.share_data ? 'yes' : 'no'
               td = p.age
               td = p.sex
