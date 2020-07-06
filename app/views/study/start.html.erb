@@ -13,11 +13,17 @@
      <fieldset>
         <legend>Identification</legend>
         <% if @study.ask_participant_id %>
-          <p>
-            <%= f.label :uuid, "Participant UUID" %>
-            <%= f.hidden_field(:uuid)%>
-            <%= @participant.uuid %>
-          </p>
+          <div style="display:flex; justify-content:space-between">
+            <p>
+              <%= f.label :uuid, "Participant UUID" %>
+              <%= f.hidden_field(:uuid)%>
+              <%= @participant.uuid %>
+            </p>
+            <p>
+              <%= f.label :age, "Pilot subject" %>
+              <%= f.check_box :pilot_subject  %>
+            </p>
+          </div>
         <% end %>
         <% if @study.ask_age %>
           <p>

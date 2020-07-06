@@ -74,6 +74,7 @@
         tr
           th participant
           th Participant UUID
+          th Pilot subject?
           th elected to share data?
           th age
           th sex
@@ -93,6 +94,7 @@
           tr
             td = p.identification
             td = p.uuid
+            td = p.pilot_subject ? 'yes' : 'no'
             td = p.share_data
             td = p.age
             td = p.sex
