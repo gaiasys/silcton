@@ -71,7 +71,7 @@
         == @study.completion_text
 
     .tab-pane#participants
-      table.table.table-striped.data-table
+      table.table.table-striped.data-table#study-participants-table
         thead
           tr
             th Participant Identification
@@ -85,10 +85,10 @@
               th Actions
         tbody
           - for p in @study.participants.includes(:study)
-            tr
+            tr data-id=p.id
               td = p.identification
               td = p.uuid
-              td = p.pilot_subject ? 'yes' : 'no'
+              td = check_box_tag 'pilot-subject', 1, p.pilot_subject
               td = p.share_data ? 'yes' : 'no'
               td = p.age
               td = p.sex

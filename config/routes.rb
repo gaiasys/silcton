@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :experimenter do
     root :to => 'site#dashboard'
+    put '/participants/:id' => 'participants#update'
     get 'shared_data', to: 'site#shared_data', as: :shared_data
     resources :experimenters
     resources :labs
