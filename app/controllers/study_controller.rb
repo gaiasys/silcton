@@ -5,6 +5,8 @@ class StudyController < ApplicationController
       @participant = Participant.new(participant_params)
       @participant.study = @study
 
+      @study.latest_identification = @participant.identification
+
       # only for Virtual Ambler
       if params[:commit] == "Take Study with Mouse"
         cookies[:input] = "mouse"
@@ -12,7 +14,7 @@ class StudyController < ApplicationController
         cookies[:input] = "joystick"
       end
       
-      if @participant.save() and cookies[:participant_id] = @participant.id
+      if @study.save() and @participant.save() and cookies[:participant_id] = @participant.id
         redirect_to study_instrument_path({:study_id => @study.id, :instrument_id => 0})
       else
         flash[:error] = "Error starting the study. Did you complete all of the identification questions?"
@@ -380,8 +382,11 @@ class StudyController < ApplicationController
   private
   def participant_params
     params.require(:participant)
-          .merge(identification: "%04d" % (@study.participants.count + 1))
+          .merge(identification: "%04d" % (participant_identification + 1))
           .permit(:identification, :share_data, :uuid, :pilot_subject)
+  end
+  def participant_identification
+    @study.latest_identification ? @study.latest_identification.to_i : @study.participants.count
   end
   def sbsod_params
     params.require(:sbsod).permit(*SbsodRecord.column_names.map(&:to_sym))
