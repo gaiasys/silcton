@@ -108,6 +108,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th total score
           th average score
@@ -131,6 +133,8 @@
           - p.sbsod_records.each do |sbsod|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.identification
+              td = p.uuid
               td = sbsod.created_at
               td = sbsod.total_score
               td = sbsod.average_score
@@ -155,6 +159,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th SDT-style score
           th q1
@@ -182,6 +188,8 @@
           - p.mrt_records.each do |mrt|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.identification
+              td = p.uuid
               td = mrt.created_at
               td = mrt.sdt_score
               td = mrt.q1
@@ -212,6 +220,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th total score
           th average score
@@ -230,6 +240,8 @@
           - p.pvas_records.each do |pvas|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.identification
+              td = p.uuid
               td = p.created_at
               td = pvas.total_score
               td = pvas.average_score
@@ -249,6 +261,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th length
           th total score
@@ -283,6 +297,8 @@
           - p.psas_records.each do |psas|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.identification
+              td = p.uuid
               td = p.created_at
               td = psas.length
               td = psas.total_score
@@ -318,6 +334,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th route
           th # of log lines
@@ -327,6 +345,8 @@
           - p.virtual_navigation_logs.each do |vnl|
             tr
               td = link_to p.study.name, experimenter_study_path(p.study)
+              td = p.identification
+              td = p.uuid
               td = p.created_at
               td = vnl.route
               td = vnl.number_of_log_lines
@@ -337,6 +357,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th model number
           th building
@@ -349,6 +371,8 @@
             - ma.virtual_map_arrangement_pieces.each do |map|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.identification
+                td = p.uuid
                 td = p.created_at
                 td = map_arrangement_index
                 td = map.virtual_landmark.name
@@ -361,6 +385,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th distance test
           th start landmark
@@ -375,6 +401,8 @@
             - vdt.virtual_distance_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.identification
+                td = p.uuid
                 td = p.created_at
                 td = vdt_index
                 td = vde.start_landmark.name
@@ -389,6 +417,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th direction test
           th start landmark
@@ -404,6 +434,8 @@
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.identification
+                td = p.uuid
                 td = p.created_at
                 td = vdt_index
                 td = vde.start_landmark.name
@@ -419,6 +451,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th date
           th direction test
           th start landmark
@@ -435,6 +469,8 @@
             - vdt.virtual_direction_estimates.each do |vde|
               tr
                 td = link_to p.study.name, experimenter_study_path(p.study)
+                td = p.identification
+                td = p.uuid
                 td = p.created_at
                 td = vdt_index
                 td = vde.start_landmark.name
