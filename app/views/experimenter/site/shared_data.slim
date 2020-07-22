@@ -69,6 +69,8 @@
       thead
         tr
           th study
+          th Participant Identification
+          th Participant UUID
           th age
           th sex
           th date
@@ -86,6 +88,8 @@
         - @participants_with_currently_shared_data.includes(:study,:sbsod_records, :psas_records, :mrt_records, :psas_records,:pvas_records,:vambler_demographics_records).each do |p|
           tr
             td = link_to p.study.name, experimenter_study_path(p.study)
+            td = p.identification
+            td = p.uuid
             td = p.age
             td = p.sex
             td = p.created_at
