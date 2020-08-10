@@ -40,6 +40,18 @@ $(document).on 'turbolinks:load', ->
         newInstrument =
           instrument: 'Vambler Route Learning'
           version: 'Connector Routes'
+      when "Virtual SILCton Route Learning (Main Routes A)"
+        newInstrument =
+          instrument: 'Main Routes A'
+      when "Virtual SILCton Route Learning (Main Routes B)"
+        newInstrument =
+          instrument: 'Main Routes B'
+      when "Virtual SILCton Route Learning (Connector Routes C1)"
+        newInstrument =
+          instrument: 'Connector Routes C1'
+      when "Virtual SILCton Route Learning (Connector Routes C2)"
+        newInstrument =
+          instrument: 'Connector Routes C2'
       when "Virtual SILCton On-site Pointing"
         newInstrument =
           instrument: 'Vambler On-site Pointing'

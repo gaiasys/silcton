@@ -7,6 +7,8 @@
 <%= render :partial => 'study/instruments/pvas' if @instrument.instrument == 'PVAS' %>
 <%= render :partial => 'study/instruments/psas' if @instrument.instrument == 'PSAS' %>
 <%= render :partial => 'study/instruments/vambler_demographics_questionnaire' if @instrument.instrument == 'Vambler Demographics' %>
+<%= render :partial => 'study/instruments/vambler_route_learning' if 
+            ['Vambler Route Learning', 'Main Routes A', 'Main Routes B', 'Connector Routes C1', 'Connector Routes C2'].include?(@instrument.instrument) %>
 <%= render :partial => 'study/instruments/vambler_route_learning' if @instrument.instrument == 'Vambler Route Learning' %>
 <%= render :partial => 'study/instruments/silcton_free_exploration' if @instrument.instrument == 'Silcton Free Exploration' %>
 <%= render :partial => 'study/instruments/vambler_onsite_pointing' if @instrument.instrument == 'Vambler On-site Pointing' %>
