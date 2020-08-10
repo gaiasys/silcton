@@ -231,6 +231,37 @@ class StudyController < ApplicationController
         end
         next_instrument(@study, @instrument.order)
       end
+    elsif ['Main Routes A', 'Main Routes B', 'Connector Routes C1', 'Connector Routes C2'].include?(@instrument.instrument)
+      route_info = @participant.route_info
+      route_info[@instrument.instrument] = (route_info[@instrument.instrument] || 0) + 1
+
+      if @instrument.instrument == "Main Routes A"
+        @route = "A"
+      elsif @instrument.instrument == "Main Routes B"
+        @route = "B"
+      elsif @instrument.instrument == "Connector Routes C1"
+        @route = "C1"
+      elsif @instrument.instrument == "Connector Routes C2"
+        @route = "C2"
+      end
+      @route_order = route_info[@instrument.instrument]
+      
+      @participant.route_info = route_info
+      @participant.save()
+
+      if request.post?
+        if params[:virtual_navigation_log].present? &&
+          params[:virtual_navigation_log][:log].present? &&
+          params[:virtual_navigation_log][:route].present?
+          VirtualNavigationLog.create(
+            :participant => @participant,
+            :virtual_environment => @virtual_environment,
+            :log => params[:virtual_navigation_log][:log],
+            :route => params[:virtual_navigation_log][:route]
+          )
+        end
+        next_instrument(@study, @instrument.order)
+      end
     elsif @instrument.instrument == "Vambler On-site Pointing"
       @virtual_environment = VirtualEnvironment.find_by_name("Ambler")
       if request.post?
