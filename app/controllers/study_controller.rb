@@ -232,6 +232,8 @@ class StudyController < ApplicationController
         next_instrument(@study, @instrument.order)
       end
     elsif ['Main Routes A', 'Main Routes B', 'Connector Routes C1', 'Connector Routes C2'].include?(@instrument.instrument)
+      @virtual_environment = VirtualEnvironment.find_by_name("Ambler")
+
       route_info = @participant.route_info
       route_info[@instrument.instrument] = (route_info[@instrument.instrument] || 0) + 1
 
