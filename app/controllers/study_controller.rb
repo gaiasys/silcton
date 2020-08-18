@@ -235,7 +235,13 @@ class StudyController < ApplicationController
       @virtual_environment = VirtualEnvironment.find_by_name("Ambler")
 
       route_info = @participant.route_info
-      route_info[@instrument.instrument] = (route_info[@instrument.instrument] || 0) + 1
+
+      if request.get?
+        route_info[@instrument.instrument] = (route_info[@instrument.instrument] || 0) + 1
+
+        @participant.route_info = route_info
+        @participant.save()
+      end
 
       if @instrument.instrument == "Main Routes A"
         @route = "A"
@@ -247,9 +253,6 @@ class StudyController < ApplicationController
         @route = "C2"
       end
       @route_order = route_info[@instrument.instrument]
-      
-      @participant.route_info = route_info
-      @participant.save()
 
       if request.post?
         if params[:virtual_navigation_log].present? &&
