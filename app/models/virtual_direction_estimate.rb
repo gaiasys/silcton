@@ -27,11 +27,11 @@ class VirtualDirectionEstimate < ApplicationRecord
         angle = angle * 180 / Math::PI
         angle = -angle
         if angle > 180
-            correctedAngle = angle - 360
+          angle = angle - 360
         elsif angle < -180
-            correctedAngle = 360 + angle
+          angle = 360 + angle
         else
-            correctedAngle = angle
+          angle = angle
         end
       end
 
