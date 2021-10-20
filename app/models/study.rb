@@ -10,7 +10,7 @@ class Study < ApplicationRecord
 
   after_initialize :default_values
   def default_values
-    self.ask_participant_id ||= true
+    self.ask_participant_id ||= false
   end
 
   def last_administered

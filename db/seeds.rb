@@ -16,7 +16,7 @@ Study.find_or_create_by(
   lab_id: lab.id,
   experimenter_id: user.id,
   active: true,
-  ask_participant_id: true,
+  ask_participant_id: false,
   welcome_text: "Welcome to Virtual Ambler. This experiment will test your navigation skills. It will take approximately 90 minutes to complete and you will receive specific instructions at each stage of the experiment. If you have questions at any time, please ask the experimenter.",
   completion_text: "You're all done now!"
 )

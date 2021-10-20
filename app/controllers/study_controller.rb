@@ -417,9 +417,14 @@ class StudyController < ApplicationController
   end
   private
   def participant_params
-    params.require(:participant)
-          .merge(identification: "%04d" % (participant_identification + 1))
-          .permit(:identification, :share_data, :uuid, :pilot_subject)
+    participant_params = params.require(:participant)
+
+    if @study.ask_participant_id and participant_params[:identification]
+      participant_params[:identification] = participant_params[:identification]
+    else
+      participant_params[:identification] = "%04d" % (participant_identification + 1)
+    end
+    participant_params = participant_params.permit(:identification, :share_data, :uuid, :pilot_subject)
   end
   def participant_identification
     @study.latest_identification ? @study.latest_identification.to_i : @study.participants.count

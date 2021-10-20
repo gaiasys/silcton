@@ -12,8 +12,11 @@
     = f.input :name
     = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => @study.lab.experimenters, :include_blank => false
     = f.input :active
+    
+    h3 Participant Id
+    = f.select :ask_participant_id, [['Auto Assign', false], ['Experimenter Assign', true]]
 
-    h2 When to Share Data
+    h3 When to Share Data
     = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
 
     h2 Instruments

@@ -12,19 +12,23 @@
   <%= form_for @participant, :url => study_start_path do |f| %>
      <fieldset>
         <legend>Identification</legend>
-        <% if @study.ask_participant_id %>
           <div style="display:flex; justify-content:space-between">
             <p>
               <%= f.label :uuid, "Participant UUID" %>
               <%= f.hidden_field(:uuid)%>
               <%= @participant.uuid %>
             </p>
+            <% if @study.ask_participant_id %>
+              <p>
+                <%= f.label :identification, "Participant ID" %>
+                <%= f.text_field :identification  %>
+              </p>
+            <% end %>
             <p>
               <%= f.label :age, "Pilot subject" %>
               <%= f.check_box :pilot_subject  %>
             </p>
           </div>
-        <% end %>
         <% if @study.ask_age %>
           <p>
             <%= f.label :age, "Age" %>
