@@ -13,9 +13,11 @@
       = f.association :lab, :as => :select, :include_blank => false, :collection => [current_experimenter.lab]
       = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => current_experimenter.lab.experimenters, :include_blank => false
     = f.input :active, :label => 'Active?'
-    = f.input :ask_participant_id, :label => "Ask for participant ID? NO NAMES/EMAIL MAY BE STORED ON THE WEBSITE"
 
-    h2 When to Share Data
+    h3 Participant Id
+    = f.select :ask_participant_id, [['Auto Assign', false], ['Experimenter Assign', true]]
+
+    h3 When to Share Data
     = f.select :when_to_share_data, [['Immediately', 'immediately'], ['After 3 Years', '3years']]
 
     h2 Instruments

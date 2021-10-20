@@ -27,8 +27,11 @@
       p
         strong Participant identification:
         ul
+          li Id
           - if @study.ask_participant_id
-            li Ask for ID (can be any number or characters) NO NAMES/EMAILS MAY BE STORED ON THE WEBSITE
+            span Experimenter Assign
+          - else 
+            span Auto Assign
           - if @study.ask_name
             li Ask for name (first and last)
           - if @study.ask_email
@@ -86,7 +89,7 @@
         tbody
           - for p in @study.participants.includes(:study)
             tr data-id=p.id
-              td = p.identification
+              td = text_field_tag 'participant-id', p.identification
               td = p.uuid
               td = check_box_tag 'pilot-subject', 1, p.pilot_subject
               td = p.share_data ? 'yes' : 'no'
