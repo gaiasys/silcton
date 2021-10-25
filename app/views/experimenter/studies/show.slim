@@ -89,7 +89,7 @@
         tbody
           - for p in @study.participants.includes(:study)
             tr data-id=p.id
-              td = text_field_tag 'participant-id', p.identification
+              td = text_field_tag 'participant-id', p.identification, disabled: !@study.ask_participant_id
               td = p.uuid
               td = check_box_tag 'pilot-subject', 1, p.pilot_subject
               td = p.share_data ? 'yes' : 'no'
