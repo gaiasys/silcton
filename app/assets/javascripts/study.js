@@ -6,7 +6,7 @@ $(document).ready(function () {
       url: "experimenters/participants/" + participant_id,
       data: { participant: { pilot_subject: this.checked } },
     }).then(function() {
-      alert('Particpant updated successfully')
+      alert('Participant updated successfully')
     });
   });
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
       url: "experimenters/participants/" + participant_id,
       data: { participant: { identification: this.value } },
     }).then(function() {
-      alert('Particpant updated successfully')
+      alert('Participant updated successfully')
     });
   });
 });

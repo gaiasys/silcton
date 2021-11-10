@@ -1,8 +1,8 @@
 - content_for :body do
   h1 = @study.name
   ul.nav.nav-tabs
-    li.active
-      a href="#view" data-toggle="tab" View Study
+    li
+      a.active href="#settings" data-toggle="tab" View Study
     - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
       li
         = link_to "Edit Study", edit_experimenter_study_path(@study)
