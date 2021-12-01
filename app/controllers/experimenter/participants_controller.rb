@@ -27,6 +27,6 @@ class Experimenter::ParticipantsController < ApplicationController
   end
 
   def participant_params
-    params.require(:participant).permit(:id, :pilot_subject)
+    params.require(:participant).permit(:id, :pilot_subject, :identification)
   end
 end
