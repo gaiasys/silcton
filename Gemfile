@@ -14,7 +14,7 @@ gem 'rails', '~> 5.1.6'
 gem 'pg', '~> 0.18'
 
 gem "jszip-rails"
-
+gem 'newrelic_rpm'
 gem 'jquery-ui-rails'
 gem 'jquery-svg-rails', github: 'ab320012/jquery-svg-rails'
 
