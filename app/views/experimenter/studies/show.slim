@@ -99,5 +99,4 @@
               - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
                 td= button_to "Delete", experimenter_study_participant_path(p.study, p), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete the records for #{p.identification}?"
                 td= button_tag "Modify", :class => "btn btn-primary modify-participant-id"
-
 = render :template => '/experimenter/layout'
