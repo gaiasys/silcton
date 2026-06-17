@@ -39,7 +39,7 @@ class Experimenter::ExperimentersController < ApplicationController
     @experimenter = Experimenter.find(params[:id])
 
     respond_to do |format|
-      if @experimenter.update_attributes(experimenter_params)
+      if @experimenter.update(experimenter_params)
         flash[:success] = "Experimenter record updated for <strong>#{@experimenter.full_name}</strong>."
         format.html { redirect_to(experimenter_experimenter_url(@experimenter)) }
       else

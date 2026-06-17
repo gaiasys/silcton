@@ -48,7 +48,7 @@ class Experimenter::StudiesController < ApplicationController
     @study = Study.find(params[:id])
 
     respond_to do |format|
-      if @study.update_attributes(study_params)
+      if @study.update(study_params)
         flash[:success] = "Study record updated for <strong>#{@study.name}</strong>."
         format.html { redirect_to(experimenter_study_url(@study)) }
       else

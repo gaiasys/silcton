@@ -7,8 +7,7 @@
       li.active 
         a Edit Study
         
-    - if f.error_messages
-      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    = render 'shared/error_messages', object: f.object
     = f.input :name
     = f.association :experimenter, :as => :select, :label => 'Primary experimenter', :collection => @study.lab.experimenters, :include_blank => false
     = f.input :active

@@ -1,8 +1,8 @@
 - content_for :body do
   h1 = @study.name
   ul.nav.nav-tabs
-    li.active
-      a href="#view" data-toggle="tab" View Study
+    li
+      a.active href="#settings" data-toggle="tab" View Study
     - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
       li
         = link_to "Edit Study", edit_experimenter_study_path(@study)
@@ -89,7 +89,7 @@
         tbody
           - for p in @study.participants.includes(:study)
             tr data-id=p.id
-              td = text_field_tag 'participant-id', p.identification, disabled: !@study.ask_participant_id
+              td = text_field_tag 'participant-id', p.identification, disabled: !@study.ask_participant_id, :class => "participant-id"
               td = p.uuid
               td = check_box_tag 'pilot-subject', 1, p.pilot_subject
               td = p.share_data ? 'yes' : 'no'
@@ -98,5 +98,5 @@
               td = p.created_at
               - if current_experimenter == @study.experimenter or current_experimenter.lab_manager or current_experimenter.administrator
                 td= button_to "Delete", experimenter_study_participant_path(p.study, p), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete the records for #{p.identification}?"
-
+                td= button_tag "Modify", :class => "btn btn-primary modify-participant-id"
 = render :template => '/experimenter/layout'

@@ -34,7 +34,7 @@ class Experimenter::LabsController < ApplicationController
     @lab = Lab.find(params[:id])
 
     respond_to do |format|
-      if @lab.update_attributes(lab_params)
+      if @lab.update(lab_params)
         flash[:success] = "Lab record updated for <strong>#{@lab.name}</strong>."
         format.html { redirect_to(experimenter_lab_url(@lab)) }
       else
