@@ -7,8 +7,7 @@
       li.active
         a Edit
         
-    - if f.error_messages
-      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    = render 'shared/error_messages', object: f.object
     - if current_experimenter.administrator
       = f.association :lab, :as => :select, :include_blank => false
     - elsif current_experimenter.lab_manager and current_experimenter.lab == @experimenter.lab

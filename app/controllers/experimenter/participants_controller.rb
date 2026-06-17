@@ -12,7 +12,7 @@ class Experimenter::ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
-    @participant.update_attributes(participant_params)
+    @participant.update(participant_params)
     render json: { success: true }
   end
 
