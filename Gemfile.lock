@@ -167,19 +167,6 @@ GEM
     mail (2.9.0)
       logger
       mini_mime (>= 0.1.1)
-<<<<<<< Updated upstream
-    method_source (0.9.0)
-    mini_mime (1.0.0)
-    mini_portile2 (2.3.0)
-    minitest (5.11.3)
-    money (6.12.0)
-      i18n (>= 0.6.4, < 1.1)
-    multi_json (1.13.1)
-    newrelic_rpm (8.5.0)
-    nio4r (2.3.1)
-    nokogiri (1.8.4)
-      mini_portile2 (~> 2.3.0)
-=======
       net-imap
       net-pop
       net-smtp
@@ -219,7 +206,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-musl)
       racc (~> 1.4)
->>>>>>> Stashed changes
     orm_adapter (0.5.0)
     pg (1.6.3)
     pg (1.6.3-aarch64-linux)
@@ -414,14 +400,7 @@ DEPENDENCIES
   zeroclipboard-rails
 
 RUBY VERSION
-<<<<<<< Updated upstream
-   ruby 2.4.1p111
-
-BUNDLED WITH
-   2.2.19
-=======
    ruby 3.3.6p108
 
 BUNDLED WITH
    2.5.22
->>>>>>> Stashed changes

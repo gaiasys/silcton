@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-ruby '2.4.1'
-=======
 ruby '3.3.6'
->>>>>>> Stashed changes
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
