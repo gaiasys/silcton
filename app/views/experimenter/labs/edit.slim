@@ -7,8 +7,7 @@
       li.active
         a Edit
         
-    - if f.error_messages
-      = f.error_messages :class => "alert alert-error", :header_tag => :strong
+    = render 'shared/error_messages', object: f.object
     = f.input :name
     = f.input :web_site
     = f.input :country

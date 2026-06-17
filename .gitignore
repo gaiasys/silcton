@@ -17,3 +17,10 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore local environment variables and secrets.
+/.env
+/config/master.key
+
+# Ignore precompiled assets.
+/public/assets
